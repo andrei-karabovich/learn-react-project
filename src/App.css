@@ -28,6 +28,32 @@
   color: #61dafb;
 }
 
+.app-wrapper {
+  display: grid;
+  grid-template-rows: 60px 1fr;
+  grid-template-columns: 2fr 10fr;
+  grid-template-areas: "h h" "n c";
+}
+
+.header {
+  background-color: aqua;
+  grid-area: h;
+}
+
+.nav {
+  background-color: green;
+  grid-area: n;
+}
+
+.content {
+  background-color: yellow;
+  grid-area: c;
+}
+
+.header img {
+  width: 70px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
