@@ -10,9 +10,9 @@ const Feed = () => {
             <button>Add Post</button>
             Posts
 
-            <Post/>
-            <Post/>
-            <Post/>
+            <Post message='Test message 1' likes='7'/>
+            <Post message='Hello this is props test' likes='22'/>
+            <Post message='This is the first post' likes='90'/>
         </div>
     );
 }

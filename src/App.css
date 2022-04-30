@@ -35,6 +35,12 @@
   grid-template-areas: "h h" "n c";
 }
 
+.app-wrapper-content {
+  background-color: yellow;
+  grid-area: c;
+}
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
