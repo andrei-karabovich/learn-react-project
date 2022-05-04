@@ -9,7 +9,7 @@ import Profile from './components/Profile/Profile';
 import Conversations from './components/Converations/Conversations';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-const App = () => {
+const App = (props) => {
   return (
     <BrowserRouter>
       <div className='app-wrapper'>
@@ -17,8 +17,8 @@ const App = () => {
         <Navbar />
         <div className="app-wrapper-content">
           <Routes>
-            <Route path='/messages/*' element={<Conversations/>}/>
-            <Route path='/profile' element={<Profile/>}/>
+            <Route path='/messages/*' element={<Conversations conversations={props.conversations}/>}/>
+            <Route path='/profile' element={<Profile posts={props.posts}/>}/>
             <Route path='/settings' element={<Settings/>}/>
             <Route path='/music' element={<Music/>}/>
             <Route path='/news' element={<News/>}/>

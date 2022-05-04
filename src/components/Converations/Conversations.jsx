@@ -4,18 +4,16 @@ import Message from './Message/Message';
 import styles from "./Conversations.module.css";
 
 const Conversations = (props) => {
+    let dialogElements = props.conversations.dialogs.map((dialog) => <Chat chatId ={dialog.chatId} name={dialog.companyonName} isActive={dialog.isActive}/>);
+    let messageElements = props.conversations.messages.map((messageItem) => <Message message={messageItem}/>);
+
     return (
         <div className={styles.dialogs}>
             <div className={styles.chats}>
-                <Chat chatId ="1" name="Paulina" isActive="true"/>
-                <Chat chatId ="2" name="Matthijs" isActive="false"/>
-                <Chat chatId ="3" name="Sam" isActive="false"/>
-                <Chat chatId ="4" name="Rutger" isActive="false"/>
+                { dialogElements }
             </div>
             <div className={styles.messages}>
-                <Message message="Hello!"/>
-                <Message message="How are you today?"/>
-                <Message message="Tell me more"/>
+                { messageElements }
             </div>
         </div>
     )
