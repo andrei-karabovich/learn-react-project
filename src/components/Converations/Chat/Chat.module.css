@@ -1,8 +1,3 @@
-.dialogs {
-    display: grid;
-    grid-template-columns: 3fr 7fr;
-}
-
 .chatItem {
     padding: 15px;
     border: 1px solid gray;
