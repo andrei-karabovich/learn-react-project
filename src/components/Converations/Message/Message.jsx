@@ -1,11 +1,12 @@
 import React from 'react';
-import styles from "./Message.module.css";
+import styles from './Message.module.css';
 
 const Message = (props) => {
-    console.log(props.message);
     return (
         <div className={styles.message}>
-            {props.message.message}
+            <p className={props.message.isInbound ? styles.inboundMessage : styles.outboundMessage}>
+                {props.message.message}
+            </p>
         </div>
     )
 }

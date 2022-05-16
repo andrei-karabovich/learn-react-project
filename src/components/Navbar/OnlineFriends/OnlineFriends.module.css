@@ -1,0 +1,9 @@
+.friendList {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.friendsWidget {
+    margin-top: 10%;
+    border: 1px solid black;
+}

@@ -1,0 +1,10 @@
+.avatar {
+    border-radius: 150px;
+    width: 30px;
+}
+
+.onlineFriendItem {
+    display: grid;
+    width: 30%;
+}
+
