@@ -1,3 +1,5 @@
+import renderTheWholeThree from '../render';
+
 const state = {
     conversationsPage: {
         dialogs : [
@@ -14,10 +16,11 @@ const state = {
     },
     profilePage: {
         posts : [
-            {chatId: '1', text: 'Hello', likesCount: 11},
-            {chatId: '2', text: 'How are you today?', likesCount: 23},
-            {chatId: '3', text: 'Tell me more', likesCount: 14}
-        ]
+            {postId: '1', text: 'Hello', likesCount: 11},
+            {postId: '2', text: 'How are you today?', likesCount: 23},
+            {postId: '3', text: 'Tell me more', likesCount: 14}
+        ],
+        newPostText : ''
     },
     navigationBar: {
         friends: [
@@ -27,5 +30,19 @@ const state = {
         ]
     }
 }
+
+export const addPost = (textPost) => {
+    const newPost = {
+        postId: '4',
+        text: textPost,
+        likesCount: 0
+    };
+    state.profilePage.posts.push(newPost);
+    renderTheWholeThree(state);
+}
+
+export const updateNewPostText = (postText) => {
+    state.profilePage.newPostText = postText;
+} 
 
 export default state;

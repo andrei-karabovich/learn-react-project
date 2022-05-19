@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom';
 import OnlineFriends from './OnlineFriends/OnlineFriends';
 
 const Navbar = (props) => {
-    debugger;
     return (
         <div>
             <nav className={styles.nav}>
