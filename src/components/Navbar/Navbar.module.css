@@ -1,15 +1,30 @@
 .nav {
-    background-color: green;
+    background-color: rgba(195, 196, 253, 0.35);
     grid-area: n;
     padding: 20px;
+    height: 95vh;
+}
+
+.navItem {
+    background-color: rgb(70, 70, 87);
+    border-radius: 5%;
+    text-align: center;
+    padding: 2%;
+    margin-top: 5%;
 }
   
 .link {
     color: white;
+    font-weight: 600;
     text-decoration: none;
 }
 
 .activeLink {
-    color: gold;
+    color: rgb(194, 190, 166);
+    font-weight: 600;
     text-decoration: none;
+}
+
+.onlineFriendBlock {
+    margin-top: 50%;
 }

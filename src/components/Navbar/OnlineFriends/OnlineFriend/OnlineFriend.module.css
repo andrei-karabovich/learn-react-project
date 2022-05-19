@@ -5,6 +5,6 @@
 
 .onlineFriendItem {
     display: grid;
-    width: 30%;
+    min-width: 35%;
 }
 

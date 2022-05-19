@@ -6,10 +6,12 @@ const OnlineFriends = (props) => {
     let onlineFriendsElements = props.data.friends.map((friendData) => <OnlineFriend data={friendData}/>);
 
     return (
-        <div className={styles.friendsWidget}>
-            <span>Online friends</span>
-            <div className={styles.friendList}>
-                {onlineFriendsElements}
+        <div>
+            <span className={styles.title}>Online friends:</span>
+            <div className={styles.friendsWidget}>
+                <div className={styles.friendList}>
+                    {onlineFriendsElements}
+                </div>
             </div>
         </div>
     );

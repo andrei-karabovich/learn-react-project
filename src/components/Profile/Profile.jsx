@@ -6,8 +6,13 @@ import ProfileInfo from './ProfileInfo/ProfileInfo';
 const Profile = (props) => {
     return (
         <div className={styles.content}>
-            <ProfileInfo/>
-            <Feed data={props.data} addPost={props.addPost} updateNewPostText={props.updateNewPostText}/>
+            <div>
+                <ProfileInfo/>
+            </div>
+
+            <div className={styles.feedBlock}>
+                <Feed data={props.data} addPost={props.addPost} updateNewPostText={props.updateNewPostText}/>
+            </div>
       </div>
     );
 }

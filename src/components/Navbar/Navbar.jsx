@@ -7,22 +7,24 @@ const Navbar = (props) => {
     return (
         <div>
             <nav className={styles.nav}>
-                <div>
+                <div className={styles.navItem}>
                     <NavLink to='/profile' className={ navData => navData.isActive ? styles.activeLink : styles.link }>Profile</NavLink>
                 </div>
-                <div>
+                <div className={styles.navItem}>
                     <NavLink to='/messages' className={ navData => navData.isActive ? styles.activeLink : styles.link }>Messages</NavLink>
                 </div>
-                <div>
+                <div className={styles.navItem}>
                     <NavLink to='/news' className={ navData => navData.isActive ? styles.activeLink : styles.link }>News</NavLink>
                 </div>
-                <div>
+                <div className={styles.navItem}>
                     <NavLink to='/music' className={ navData => navData.isActive ? styles.activeLink : styles.link }>Music</NavLink>
                 </div>
-                <div>
+                <div className={styles.navItem}>
                     <NavLink to='/settings' className={ navData => navData.isActive ? styles.activeLink : styles.link }>Settings</NavLink>
                 </div>
-                <OnlineFriends data={props.data}/>
+                <div className={styles.onlineFriendBlock}>
+                    <OnlineFriends data={props.data}/>
+                </div>
             </nav>
         </div>
     );

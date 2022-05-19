@@ -36,7 +36,7 @@
 }
 
 .app-wrapper-content {
-  background-color: yellow;
+  background-color: rgba(195, 196, 253, 0.2);
   grid-area: c;
 }
 
