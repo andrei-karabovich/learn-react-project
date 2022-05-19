@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import Header from './components/Header/Header';
 import Settings from './components/Settings/Settings';
@@ -14,11 +13,11 @@ const App = (props) => {
     <BrowserRouter>
       <div className='app-wrapper'>
         <Header />
-        <Navbar />
-        <div className="app-wrapper-content">
+        <Navbar data={props.state.navigationBar}/>
+        <div className='app-wrapper-content'>
           <Routes>
-            <Route path='/messages/*' element={<Conversations conversations={props.conversations}/>}/>
-            <Route path='/profile' element={<Profile posts={props.posts}/>}/>
+            <Route path='/messages/*' element={<Conversations data={props.state.conversationsPage}/>}/>
+            <Route path='/profile' element={<Profile data={props.state.profilePage} addPost={props.addPost} updateNewPostText={props.updateNewPostText}/>}/>
             <Route path='/settings' element={<Settings/>}/>
             <Route path='/music' element={<Music/>}/>
             <Route path='/news' element={<News/>}/>

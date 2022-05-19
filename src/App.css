@@ -32,11 +32,11 @@
   display: grid;
   grid-template-rows: 60px 1fr;
   grid-template-columns: 2fr 10fr;
-  grid-template-areas: "h h" "n c";
+  grid-template-areas: 'h h' 'n c';
 }
 
 .app-wrapper-content {
-  background-color: yellow;
+  background-color: rgba(195, 196, 253, 0.2);
   grid-area: c;
 }
 

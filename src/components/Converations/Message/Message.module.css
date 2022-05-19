@@ -1,3 +1,12 @@
 .message {
     color: gray;
+    display: flow-root;
+}
+
+.inboundMessage {
+    float: left;
+}
+
+.outboundMessage {
+    float: right;
 }

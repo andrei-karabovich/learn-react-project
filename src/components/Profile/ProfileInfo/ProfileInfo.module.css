@@ -1,3 +1,18 @@
 .descriptionBlock {
     padding: 10px;
 }
+
+.avatar {
+    max-width: 300px;
+    border-radius: 50%;
+}
+
+.profileBlock {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.userName {
+    font-size: 1.5rem;
+    margin-left: 7%;
+}
