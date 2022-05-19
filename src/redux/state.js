@@ -43,6 +43,7 @@ export const addPost = (textPost) => {
 
 export const updateNewPostText = (postText) => {
     state.profilePage.newPostText = postText;
+    renderTheWholeThree(state);
 } 
 
 export default state;
