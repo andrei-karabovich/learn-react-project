@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './OnlineFriends.module.css';
-import OnlineFriend from './OnlineFriend/OnlineFriend';
+import OnlineFriend from './OnlineFriend';
 
 const OnlineFriends = (props) => {
     let onlineFriendsElements = props.data.friends.map((friendData) => <OnlineFriend data={friendData}/>);

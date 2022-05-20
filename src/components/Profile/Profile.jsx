@@ -1,7 +1,7 @@
 import React from 'react';
-import Feed from './Feed/Feed';
+import Feed from './Feed';
 import styles from './Profile.module.css';
-import ProfileInfo from './ProfileInfo/ProfileInfo';
+import ProfileInfo from './ProfileInfo';
 
 const Profile = (props) => {
     return (

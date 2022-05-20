@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Feed.module.css';
-import Post from './Post/Post';
+import Post from './Post';
 
 const Feed = (props) => {
     let postElements = props.data.posts.map((post) => <Post message={post.text} likes={post.likesCount}/>);
