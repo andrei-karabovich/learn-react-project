@@ -1,6 +1,6 @@
 import React from 'react';
-import Chat from './Chat/Chat';
-import Message from './Message/Message';
+import Chat from './Chat';
+import Message from './Message';
 import styles from './Conversations.module.css';
 
 const Conversations = (props) => {

@@ -1,11 +1,11 @@
 import './App.css';
-import Header from './components/Header/Header';
-import Settings from './components/Settings/Settings';
-import Music from './components/Music/Music';
-import News from './components/News/News';
+import Header from './components/Header';
+import Settings from './components/Settings';
+import Music from './components/Music';
+import News from './components/News';
 import Navbar from './components/Navbar/Navbar';
-import Profile from './components/Profile/Profile';
-import Conversations from './components/Converations/Conversations';
+import Profile from './components/Profile';
+import Conversations from './components/Conversations';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 const App = (props) => {
