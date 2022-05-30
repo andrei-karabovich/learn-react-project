@@ -4,7 +4,7 @@ import Post from './Post';
 
 const Feed = (props) => {
     let postElements = props.data.posts.map((post) => <Post message={post.text} likes={post.likesCount}/>);
-    let postInput = React.createRef();
+    let postInput = React.useRef();
 
     const createPost = () => {
         props.addPost(props.data.newPostText);
