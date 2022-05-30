@@ -1,4 +1,6 @@
-import renderTheWholeThree from '../render';
+let renderTheWholeThree = () => {
+    console.log('Rerender');
+};
 
 const state = {
     conversationsPage: {
@@ -45,5 +47,10 @@ export const updateNewPostText = (postText) => {
     state.profilePage.newPostText = postText;
     renderTheWholeThree(state);
 } 
+
+
+export const subscribe = (observer) => {
+    renderTheWholeThree = observer;
+}
 
 export default state;
