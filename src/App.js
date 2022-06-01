@@ -11,7 +11,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 const App = (props) => {
   return (
     <BrowserRouter>
-      <div className='app-wrapper'>
+        <div className='app-wrapper'>
         <Header />
         <Navbar data={props.state.navigationBar}/>
         <div className='app-wrapper-content'>
