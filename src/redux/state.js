@@ -1,5 +1,7 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST = 'UPDATE-NEW-POST';
+const ADD_MESSAGE = 'ADD-MESSAGE';
+const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE';
 
 
 export const addPostActionCreator = () => {
@@ -16,7 +18,16 @@ export const updateTextActionCreator = (text) => {
 };
 
 export const addMessageActionCreator = () => {
+    return {
+        type: ADD_MESSAGE,
+    }
+};
 
+export const updateMessageActionCreator = (message) => {
+    return {
+        type: UPDATE_NEW_MESSAGE,
+        message: message
+    }
 };
 
 
@@ -33,7 +44,8 @@ const store = {
                 {chatId: '1', message: 'Hello', isInbound: true},
                 {chatId: '2', message: 'How are you today?',  isInbound: true},
                 {chatId: '3', message: 'Tell me more',  isInbound: false}
-            ]
+            ],
+            newMessageText : ''
         },
         profilePage: {
             posts : [
@@ -72,6 +84,12 @@ const store = {
             case UPDATE_NEW_POST:
                 this._updateNewPostText(action.text);
                 break;
+            case ADD_MESSAGE:
+                this._addMessage();
+                break;
+            case UPDATE_NEW_MESSAGE:
+                this._updateNewMessageText(action.message);
+                break;
             default:
                 console.log('Action not found');
           }
@@ -84,6 +102,7 @@ const store = {
             likesCount: 0
         };
         this._state.profilePage.posts.push(newPost);
+        this._state.profilePage.newPostText = '';
         this.renderTheWholeThree(this._state);
     },
 
@@ -92,6 +111,21 @@ const store = {
         this.renderTheWholeThree(this._state);
     },
 
+    _addMessage() {
+        const newMessage = {
+            chatId: '1',
+            message: this._state.conversationsPage.newMessageText,
+            isInbound: false
+        };
+        this._state.conversationsPage.messages.push(newMessage);
+        this._state.conversationsPage.newMessageText = '';
+        this.renderTheWholeThree(this._state);
+    },
+
+    _updateNewMessageText(message) {
+        this._state.conversationsPage.newMessageText = message;
+        this.renderTheWholeThree(this._state);
+    }
 
 }
 
