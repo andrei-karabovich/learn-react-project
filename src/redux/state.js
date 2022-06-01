@@ -1,3 +1,25 @@
+const ADD_POST = 'ADD-POST';
+const UPDATE_NEW_POST = 'UPDATE-NEW-POST';
+
+
+export const addPostActionCreator = () => {
+    return {
+        type: ADD_POST,
+    }
+};
+
+export const updateTextActionCreator = (text) => {
+    return {
+        type: UPDATE_NEW_POST,
+        text: text
+    }
+};
+
+export const addMessageActionCreator = () => {
+
+};
+
+
 const store = {
     _state: {
         conversationsPage: {
@@ -34,28 +56,43 @@ const store = {
         return this._state;
     },
 
+    subscribe(observer) {
+        this.renderTheWholeThree = observer;
+    },
+
     renderTheWholeThree() {
         console.log('Rerender');
     },
 
-    addPost(textPost) {
+    dispatch(action) {
+        switch(action.type) {
+            case ADD_POST:
+               this._addPost();
+              break;
+            case UPDATE_NEW_POST:
+                this._updateNewPostText(action.text);
+                break;
+            default:
+                console.log('Action not found');
+          }
+    },
+
+    _addPost() {
         const newPost = {
             postId: '4',
-            text: textPost,
+            text: this._state.profilePage.newPostText,
             likesCount: 0
         };
         this._state.profilePage.posts.push(newPost);
         this.renderTheWholeThree(this._state);
     },
 
-    updateNewPostText(postText) {
+    _updateNewPostText(postText) {
         this._state.profilePage.newPostText = postText;
         this.renderTheWholeThree(this._state);
     },
 
-    subscribe(observer) {
-        this.renderTheWholeThree = observer;
-    }
+
 }
 
 
