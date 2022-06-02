@@ -1,3 +1,7 @@
+import conversationsReducer from "./conversationsReducer";
+import navigationReducer from "./navigationReducer";
+import profileReducer from "./profileReducer";
+
 const store = {
     _state: {
         conversationsPage: {
@@ -11,7 +15,8 @@ const store = {
                 {chatId: '1', message: 'Hello', isInbound: true},
                 {chatId: '2', message: 'How are you today?',  isInbound: true},
                 {chatId: '3', message: 'Tell me more',  isInbound: false}
-            ]
+            ],
+            newMessageText : ''
         },
         profilePage: {
             posts : [
@@ -34,27 +39,19 @@ const store = {
         return this._state;
     },
 
-    renderTheWholeThree() {
-        console.log('Rerender');
-    },
-
-    addPost(textPost) {
-        const newPost = {
-            postId: '4',
-            text: textPost,
-            likesCount: 0
-        };
-        this._state.profilePage.posts.push(newPost);
-        this.renderTheWholeThree(this._state);
-    },
-
-    updateNewPostText(postText) {
-        this._state.profilePage.newPostText = postText;
-        this.renderTheWholeThree(this._state);
-    },
-
     subscribe(observer) {
-        this.renderTheWholeThree = observer;
+        this.notifySubscribers = observer;
+    },
+
+    notifySubscribers() {
+        console.log('Subscriber not found');
+    },
+
+    dispatch(action) {
+        this._state.conversationsPage = conversationsReducer(action, this._state.conversationsPage);
+        this._state.profilePage = profileReducer(action, this._state.profilePage);
+        this._state.navigationBar = navigationReducer(action, this._state.navigationBar);
+        this.notifySubscribers();
     }
 }
 

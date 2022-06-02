@@ -11,7 +11,7 @@ const Profile = (props) => {
             </div>
 
             <div className={styles.feedBlock}>
-                <Feed data={props.data} addPost={props.addPost} updateNewPostText={props.updateNewPostText}/>
+                <Feed data={props.data} dispatch={props.dispatch}/>
             </div>
       </div>
     );
