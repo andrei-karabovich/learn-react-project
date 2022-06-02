@@ -2,7 +2,7 @@ import React from 'react';
 import Chat from './Chat';
 import Message from './Message';
 import styles from './Conversations.module.css';
-import { addMessageActionCreator, updateMessageActionCreator } from '../../redux/state';
+import { addMessageActionCreator, updateMessageActionCreator } from '../../redux/conversationsReducer';
 
 const Conversations = (props) => {
     const messageInput = React.createRef();

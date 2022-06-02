@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Feed.module.css';
 import Post from './Post';
-import { addPostActionCreator, updateTextActionCreator } from '../../../redux/state';
+import { addPostActionCreator, updateTextActionCreator } from '../../../redux/profileReducer';
 
 const Feed = (props) => {
     let postElements = props.data.posts.map((post) => <Post message={post.text} likes={post.likesCount}/>);
