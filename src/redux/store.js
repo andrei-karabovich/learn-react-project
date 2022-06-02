@@ -48,9 +48,9 @@ const store = {
     },
 
     dispatch(action) {
-        this._state.conversationsPage = conversationsReducer(action, this._state.conversationsPage);
-        this._state.profilePage = profileReducer(action, this._state.profilePage);
-        this._state.navigationBar = navigationReducer(action, this._state.navigationBar);
+        this._state.conversationsPage = conversationsReducer(this._state.conversationsPage, action);
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.navigationBar = navigationReducer(this._state.navigationBar, action);
         this.notifySubscribers();
     }
 }
