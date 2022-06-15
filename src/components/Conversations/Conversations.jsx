@@ -2,22 +2,19 @@ import React from 'react';
 import Chat from './Chat';
 import Message from './Message';
 import styles from './Conversations.module.css';
-import { addMessageActionCreator, updateMessageActionCreator } from '../../redux/conversationsReducer';
 
 const Conversations = (props) => {
     const messageInput = React.createRef();
-    let dialogElements = props.data.dialogs.map((dialog) => <Chat chatId ={dialog.chatId} name={dialog.companyonName} isActive={dialog.isActive}/>);
-    let messageElements = props.data.messages.map((messageItem) => <Message message={messageItem}/>);
+    let dialogElements = props.dialogs.map((dialog) => <Chat chatId ={dialog.chatId} name={dialog.companyonName} isActive={dialog.isActive}/>);
+    let messageElements = props.messages.map((messageItem) => <Message message={messageItem}/>);
 
-    const onMessageInput = () => {
-        const action = updateMessageActionCreator(messageInput.current.value)
-        props.dispatch(action);
+    const updateNewMessageText = () => {
+        props.onMessageInput(messageInput.current.value);
     };
 
     const sendMessage = () => {
-        const action = addMessageActionCreator();
-        props.dispatch(action);
-    }
+        props.onSendMessage();
+    };
 
     return (
         <div className={styles.dialogs}>
@@ -29,7 +26,7 @@ const Conversations = (props) => {
             </div>
 
             <div>
-                <textarea ref={messageInput} value={props.data.newMessageText} onChange={onMessageInput}/>
+                <textarea ref={messageInput} value={props.newMessageText} onChange={updateNewMessageText}/>
                 <button onClick={ sendMessage }> Send </button>
             </div>
         </div>

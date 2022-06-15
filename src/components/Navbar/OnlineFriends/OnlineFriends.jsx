@@ -3,7 +3,7 @@ import styles from './OnlineFriends.module.css';
 import OnlineFriend from './OnlineFriend';
 
 const OnlineFriends = (props) => {
-    let onlineFriendsElements = props.data.friends.map((friendData) => <OnlineFriend data={friendData}/>);
+    let onlineFriendsElements = props.store.getState().navigationBar.friends.map((friendData) => <OnlineFriend data={friendData}/>);
 
     return (
         <div>

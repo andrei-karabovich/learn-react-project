@@ -1,5 +1,5 @@
 import React from 'react';
-import Feed from './Feed';
+import FeedContainer from './Feed/FeedContainer';
 import styles from './Profile.module.css';
 import ProfileInfo from './ProfileInfo';
 
@@ -11,7 +11,7 @@ const Profile = (props) => {
             </div>
 
             <div className={styles.feedBlock}>
-                <Feed data={props.data} dispatch={props.dispatch}/>
+                <FeedContainer store={props.store}/>
             </div>
       </div>
     );
