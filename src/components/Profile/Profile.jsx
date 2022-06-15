@@ -11,7 +11,7 @@ const Profile = (props) => {
             </div>
 
             <div className={styles.feedBlock}>
-                <FeedContainer store={props.store}/>
+                <FeedContainer/>
             </div>
       </div>
     );
