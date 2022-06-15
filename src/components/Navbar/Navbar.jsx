@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './Navbar.module.css';
 import { NavLink } from 'react-router-dom';
-import OnlineFriends from './OnlineFriends';
+import OnlineFriendsContainer from './OnlineFriends/OnlineFriendsContainer';
 
-const Navbar = (props) => {
+const Navbar = () => {
     return (
         <div>
             <nav className={styles.nav}>
@@ -23,7 +23,7 @@ const Navbar = (props) => {
                     <NavLink to='/settings' className={ navData => navData.isActive ? styles.activeLink : styles.link }>Settings</NavLink>
                 </div>
                 <div className={styles.onlineFriendBlock}>
-                    <OnlineFriends store={props.store}/>
+                    <OnlineFriendsContainer/>
                 </div>
             </nav>
         </div>

@@ -3,7 +3,7 @@ import Header from './components/Header';
 import Settings from './components/Settings';
 import Music from './components/Music';
 import News from './components/News';
-import Navbar from './components/Navbar/Navbar';
+import Navbar from './components/Navbar';
 import Profile from './components/Profile';
 import ConversationsContainer from './components/Conversations';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -13,7 +13,7 @@ const App = (props) => {
     <BrowserRouter>
         <div className='app-wrapper'>
         <Header />
-        <Navbar store={props.store}/>
+        <Navbar/>
         <div className='app-wrapper-content'>
           <Routes>
             <Route path='/messages/*' element={<ConversationsContainer/>}/>

@@ -1,31 +1,30 @@
 import React from 'react';
 import Conversations from './Conversations';
 import { addMessageActionCreator, updateMessageActionCreator } from '../../redux/conversationsReducer';
-import StoreContext from '../../storeContext';
+import {connect} from 'react-redux';
 
-const ConversationsContainer = (props) => {
-    return (
-        <StoreContext.Consumer>
-            {
-                (store) => {
-                    const state = store.getState().conversationsPage;
+let mapStateToProps = (state) => {
+    return {
+        dialogs: state.conversationsPage.dialogs,
+        messages: state.conversationsPage.messages,
+        newMessageText: state.conversationsPage.newMessageText
+    }
+};
 
-                    const updateNewMessageText = (text) => {
-                        const action = updateMessageActionCreator(text)
-                        store.dispatch(action);
-                    };
-                
-                    const sendMessage = () => {
-                        const action = addMessageActionCreator();
-                        store.dispatch(action);
-                    };
+let mapDispatchToProps = (dispatch) => {
+    return {
+        onMessageInput: (text) => {
+            const action = updateMessageActionCreator(text)
+            dispatch(action);
+        },
+        onSendMessage: () => {
+            const action = addMessageActionCreator();
+            dispatch(action);
+        }
+    }
+};
 
-                    return <Conversations dialogs={state.dialogs} messages={state.messages} onMessageInput={updateNewMessageText} onSendMessage={sendMessage} newMessageText={state.newMessageText} />
-                }
-            }
 
-        </StoreContext.Consumer>
-    )
-}
+const ConversationsContainer = connect(mapStateToProps, mapDispatchToProps)(Conversations);
 
 export default ConversationsContainer;

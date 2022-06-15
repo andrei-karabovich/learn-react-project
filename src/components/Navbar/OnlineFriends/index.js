@@ -1,1 +1,1 @@
-export { default } from './OnlineFriends';
+export { default } from './OnlineFriendsContainer';

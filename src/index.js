@@ -3,14 +3,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import store from "./redux/store-redux";
-import StoreContext from "./storeContext";
+import {Provider} from "react-redux";
 
-const renderTheWholeThree = (state) => {
+const renderTheWholeThree = () => {
   ReactDOM.render(
     <React.StrictMode>
-      <StoreContext.Provider value={store}>
-        <App store={store}/>
-      </StoreContext.Provider>
+      <Provider store={store}>
+        <App/>
+      </Provider>
     </React.StrictMode>,
     document.getElementById("root")
   );

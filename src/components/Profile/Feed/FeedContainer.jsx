@@ -1,34 +1,28 @@
-import React from 'react';
 import Feed from './Feed';
 import { addPostActionCreator, updateTextActionCreator } from '../../../redux/profileReducer';
-import StoreContext from '../../../storeContext';
+import { connect } from 'react-redux';
 
-const FeedContainer = (props) => {
-    return (
-        <StoreContext.Consumer>
-            {
-                (store) => {
-                    const state = store.getState().profilePage;
-
-                    const createPost = () => {
-                        const action = addPostActionCreator();
-                        store.dispatch(action);
-                    }
-
-                    const updatePostText = (text) => {
-                        const action = updateTextActionCreator(text);
-                        store.dispatch(action);
-                    }
-
-                    return (
-                        <Feed posts={state.posts} newPostText={state.newPostText} onPostCreate={createPost} onNewPostTextUpdate={updatePostText} />
-                    );
-                }
-            }
-
-        </StoreContext.Consumer>
-    );
+let mapStateToProps = (state) => {
+    return {
+        posts: state.profilePage.posts,
+        newPostText: state.profilePage.newPostText
+    }
 }
+
+let mapDispatchToProps = (dispatch) => {
+    return {
+        onPostCreate: () => {
+            const action = addPostActionCreator();
+            dispatch(action);
+        }, 
+        onNewPostTextUpdate: (text) => { 
+            const action = updateTextActionCreator(text);
+            dispatch(action);
+        }
+    }
+}
+
+const FeedContainer = connect(mapStateToProps,mapDispatchToProps)(Feed);
 
 export default FeedContainer;
 
