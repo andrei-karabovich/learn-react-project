@@ -5,7 +5,7 @@ const initialState = {
   posts: [
     { postId: '1', text: 'Hello', likesCount: 11 },
     { postId: '2', text: 'How are you today?', likesCount: 23 },
-    { postId: '3', text: 'Tell me 14' },
+    { postId: '3', text: 'Tell me more. This must be a long post to check how the layout works.', likesCount: 14 },
   ],
   newPostText: '',
 };

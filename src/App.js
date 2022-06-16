@@ -11,17 +11,19 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 const App = (props) => {
   return (
     <BrowserRouter>
-        <div className='app-wrapper'>
-        <Header />
-        <Navbar/>
-        <div className='app-wrapper-content'>
-          <Routes>
-            <Route path='/messages/*' element={<ConversationsContainer/>}/>
-            <Route path='/profile' element={<Profile/>}/>
-            <Route path='/settings' element={<Settings/>}/>
-            <Route path='/music' element={<Music/>}/>
-            <Route path='/news' element={<News/>}/>
-          </Routes>
+        <div className='app-wrapper-container'>
+          <div className='app-wrapper'>
+          <Header />
+          <Navbar/>
+          <div className='app-wrapper-content'>
+            <Routes>
+              <Route path='/messages/*' element={<ConversationsContainer/>}/>
+              <Route path='/profile' element={<Profile/>}/>
+              <Route path='/settings' element={<Settings/>}/>
+              <Route path='/music' element={<Music/>}/>
+              <Route path='/news' element={<News/>}/>
+            </Routes>
+          </div>
         </div>
       </div>
     </BrowserRouter>

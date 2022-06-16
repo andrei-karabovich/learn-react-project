@@ -15,12 +15,16 @@ const Feed = (props) => {
     }
 
     return (
-        <div className={styles.feed}>
-            <div>New Post</div>
-            <textarea ref={postInput} value={props.newPostText} onChange={updateText}/>
-            <button onClick={createPost}>Add Post</button>
-            Posts
-            {postElements}
+        <div className={styles.feedBlock}>
+            <div className={styles.createPostBlock}>
+                <textarea ref={postInput} value={props.newPostText} onChange={updateText} placeholder='New post' className={styles.newPostInput}/>
+                <p className={styles.buttonBlock}>
+                    <button onClick={createPost} className={styles.submitButton}>Add Post</button>
+                </p>
+            </div>
+            <div className={styles.feed}>
+                {postElements}
+            </div>
         </div>
     );
 }
