@@ -3,7 +3,7 @@ import styles from './Feed.module.css';
 import Post from './Post';
 
 const Feed = (props) => {
-    let postElements = props.posts.map((post) => <Post message={post.text} likes={post.likesCount}/>);
+    let postElements = props.posts.map((post) => <Post message={post.text} likes={post.likesCount} key={post.postId}/>);
     let postInput = React.useRef();
 
     const createPost = () => {

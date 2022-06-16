@@ -3,7 +3,7 @@ import styles from './OnlineFriends.module.css';
 import OnlineFriend from './OnlineFriend';
 
 const OnlineFriends = (props) => {
-    let onlineFriendsElements = props.friends.map((friendData) => <OnlineFriend data={friendData}/>);
+    let onlineFriendsElements = props.friends.map((friendData) => <OnlineFriend key={friendData.id} data={friendData}/>);
 
     return (
         <div>

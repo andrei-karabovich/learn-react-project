@@ -5,8 +5,8 @@ import styles from './Conversations.module.css';
 
 const Conversations = (props) => {
     const messageInput = React.createRef();
-    let dialogElements = props.dialogs.map((dialog) => <Chat chatId ={dialog.chatId} name={dialog.companyonName} isActive={dialog.isActive}/>);
-    let messageElements = props.messages.map((messageItem) => <Message message={messageItem}/>);
+    let dialogElements = props.dialogs.map((dialog) => <Chat chatId={dialog.chatId} key={dialog.chatId} name={dialog.companyonName} isActive={dialog.isActive}/>);
+    let messageElements = props.messages.map((messageItem) => <Message message={messageItem} key={messageItem.chatId}/>);
 
     const updateNewMessageText = () => {
         props.onMessageInput(messageInput.current.value);
