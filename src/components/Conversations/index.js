@@ -1,1 +1,1 @@
-export { default } from './Conversations';
+export { default } from './ConversationsContainer';

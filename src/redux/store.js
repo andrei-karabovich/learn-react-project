@@ -1,6 +1,6 @@
-import conversationsReducer from "./conversationsReducer";
-import navigationReducer from "./navigationReducer";
-import profileReducer from "./profileReducer";
+import conversationsReducer from './conversationsReducer';
+import navigationReducer from './navigationReducer';
+import profileReducer from './profileReducer';
 
 const store = {
     _state: {
@@ -12,9 +12,9 @@ const store = {
                 {chatId: '4', companyonName: 'Rutger', isActive: false}
             ], 
             messages : [
-                {chatId: '1', message: 'Hello', isInbound: true},
-                {chatId: '2', message: 'How are you today?',  isInbound: true},
-                {chatId: '3', message: 'Tell me more',  isInbound: false}
+                {chatId: '1', message: 'Hello', isOutbound: true},
+                {chatId: '2', message: 'How are you today?',  isOutbound: true},
+                {chatId: '3', message: 'Tell me more',  isOutbound: false}
             ],
             newMessageText : ''
         },
