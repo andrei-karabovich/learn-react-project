@@ -1,4 +1,4 @@
-import Users from "./Users";
+import Users from "./UsersF";
 import {connect} from "react-redux";
 import {inverseIsFollow, setUsers} from "../../redux/usersReducer";
 
