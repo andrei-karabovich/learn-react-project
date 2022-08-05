@@ -12,7 +12,7 @@ let mapStateToProps = (state) => {
 let mapDispatchToProps = (dispatch) => {
     return {
         onFollowButtonClick: (userId) => {
-             dispatch(inverseIsFollow(userId))
+            dispatch(inverseIsFollow(userId))
         },
         onSetUsers: (users) => {
             dispatch(setUsers(users))

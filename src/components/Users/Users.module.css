@@ -1,0 +1,9 @@
+.userElement {
+    border: 1px solid black;
+}
+
+.userAvatar {
+    border-radius: 50%;
+    max-width: 90px;
+    max-height: 90px;
+}

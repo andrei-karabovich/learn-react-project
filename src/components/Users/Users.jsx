@@ -1,31 +1,31 @@
+import * as axios from "axios";
 import React from "react";
+import styles from './Users.module.css';
 
-const Users = (props) => {
+class Users extends React.Component {
 
-    if (!props.users) {
-        props.onSetUsers([
-            { id: '1', fullName: 'Vasiliy', userStatus: 'Some random status here', address: { city: 'Minsk', country: 'Belarus' }, isFollow: true },
-            { id: '2', fullName: 'Karl', userStatus: 'Somathing about pony', address: { city: 'Berlin', country: 'Germany' }, isFollow: false },
-            { id: '3', fullName: 'Andrew', userStatus: 'I love my cat', address: { city: 'Antwerpen', country: 'Belgium' }, isFollow: true }
-        ]);
+    constructor(props) {
+        super(props);
+        axios.get('https://social-network.samuraijs.com/api/1.0/users').then( (response) => {
+            this.props.onSetUsers(response.data.items);
+        });
     }
 
-    const onSubscribeButtonClick = (evt) => {
+    onSubscribeButtonClick = (evt) => {
         const value = evt.currentTarget.id;
-        props.onFollowButtonClick(value);
+        this.props.onFollowButtonClick(parseInt(value));
     }
 
-    let setMessage = (message) => {
-        this.myTestState.someMessage = message;
-    }
-
-    return <div> {
-        props.users?.map(u => <div key={u.id}>
-            {u.fullName}
-            <button id={u.id} onClick={onSubscribeButtonClick}>{u.isFollow ? 'Unfollow' : 'Follow'}</button>
+    render () {
+        return <div> {
+            this.props.users?.map(u => <div key={u.id} className={styles.userElement}>
+                <img src={u.photos.small != null ? u.photos.small : 'https://bit.ly/3zu5DNw'} className={styles.userAvatar}/>
+                {u.name}
+                <button id={u.id} onClick={this.onSubscribeButtonClick}>{u.followed ? 'Unfollow' : 'Follow'}</button>
+            </div>
+            )}
         </div>
-        )}
-    </div>
+    }
 }
 
 export default Users;

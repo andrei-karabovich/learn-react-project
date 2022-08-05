@@ -1,5 +1,5 @@
 const INVERSE_FOLLOW = 'INVERSE_FOLLOW';
-const SET_USERS = 'UPDATE-NEW-POST';
+const SET_USERS = 'SET_USERS';
 
 const initialState = {};
 
@@ -9,7 +9,7 @@ const usersReducer = (state = initialState, action) => {
     return {
         users: state.users.map( u => {
             if (u.id === action.userId) {
-                u.isFollow = !u.isFollow;
+                u.followed = !u.followed;
             }
             return u;
         })
