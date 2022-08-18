@@ -2,12 +2,14 @@ const INVERSE_FOLLOW = 'INVERSE_FOLLOW';
 const SET_USERS = 'SET_USERS';
 const SET_USERS_TOTAL_COUNT = 'SET_USERS_TOTAL_COUNT';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
+const TOGGLE_IS_LOADING = 'TOGGLE_IS_LOADING';
 
 const initialState = {
   users: [],
   currentPage: 1,
   pageSize: 5,
-  totalUsersCount: 0
+  totalUsersCount: 0,
+  isLoading: false
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -28,6 +30,8 @@ const usersReducer = (state = initialState, action) => {
       return { ...state, totalUsersCount: action.count}
     case SET_CURRENT_PAGE:
       return { ...state, currentPage: action.pageNumber}    
+    case TOGGLE_IS_LOADING:
+      return { ...state, isLoading: action.isLoading}    
     default:
       return state;
   }
@@ -62,5 +66,12 @@ export const setCurrentPage = (pageNumber) => {
   };
 };
 
+
+export const toggleIsLoading = (isLoading) => {
+  return {
+    type: TOGGLE_IS_LOADING,
+    isLoading
+  };
+};
 
 export default usersReducer;
