@@ -7,3 +7,12 @@
     max-width: 90px;
     max-height: 90px;
 }
+
+.pageNumber {
+    cursor: pointer;
+}
+
+.pageNumberSelected {
+    font-weight: bold;
+    cursor: pointer;
+}
