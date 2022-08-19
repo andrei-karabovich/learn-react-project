@@ -15,24 +15,13 @@ let mapStateToProps = (state) => {
     }
 };
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        onFollowButtonClick: (userId) => {
-            dispatch(inverseIsFollow(userId))
-        },
-        onSetUsers: (users) => {
-            dispatch(setUsers(users))
-        }, 
-        onSetTotalCount: (count) => {
-            dispatch(setUsersTotalCount(count))
-        },
-        onSetCurrentPage: (pageNumber) => {
-            dispatch(setCurrentPage(pageNumber));
-        },
-        toggleIsLoading: (isLoading) => {
-            dispatch(toggleIsLoading(isLoading));
-        }
-    }
+
+let mapDispatchToPropsObject = {
+    inverseIsFollow,
+    setUsers,
+    setUsersTotalCount,
+    setCurrentPage,
+    toggleIsLoading
 };
 
 const UsersContainer = (props) => {
@@ -40,8 +29,8 @@ const UsersContainer = (props) => {
         props.toggleIsLoading(true);
         const endPoint = `https://social-network.samuraijs.com/api/1.0/users?count=${props.pageSize}&page=${props.currentPage}`;
         axios.get(endPoint).then( (response) => {
-            props.onSetUsers(response.data.items);
-            props.onSetTotalCount(90);
+            props.setUsers(response.data.items);
+            props.setUsersTotalCount(90);
             props.toggleIsLoading(false);
         });
     }, []);
@@ -49,15 +38,15 @@ const UsersContainer = (props) => {
 
     const onSubscribeButtonClick = (evt) => {
         const value = evt.currentTarget.id;
-        props.onFollowButtonClick(parseInt(value));
+        props.inverseIsFollow(parseInt(value));
     }
 
     const onPageNumberClick = (pageNumber) => {
-        props.onSetCurrentPage(pageNumber);
+        props.setCurrentPage(pageNumber);
         props.toggleIsLoading(true);
         const endPoint = `https://social-network.samuraijs.com/api/1.0/users?count=${props.pageSize}&page=${pageNumber}`;
         axios.get(endPoint).then( (response) => {
-            props.onSetUsers(response.data.items);
+            props.setUsers(response.data.items);
             props.toggleIsLoading(false);
         }); 
     }
@@ -73,4 +62,4 @@ const UsersContainer = (props) => {
     </>
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
+export default connect(mapStateToProps, mapDispatchToPropsObject)(UsersContainer)
