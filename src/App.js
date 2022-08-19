@@ -5,8 +5,8 @@ import Music from './components/Music';
 import News from './components/News';
 import Navbar from './components/Navbar';
 import Profile from './components/Profile';
-import UsersContainer from './components/Users';
-import ConversationsContainer from './components/Conversations';
+import Users from './components/Users';
+import Conversations from './components/Conversations';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 const App = (props) => {
@@ -18,12 +18,12 @@ const App = (props) => {
           <Navbar/>
           <div className='app-wrapper-content'>
             <Routes>
-              <Route path='/messages/*' element={<ConversationsContainer/>}/>
-              <Route path='/profile' element={<Profile/>}/>
+              <Route path='/messages/*' element={<Conversations/>}/>
+              <Route path='/profile/*' element={<Profile/>}/>
               <Route path='/settings' element={<Settings/>}/>
               <Route path='/music' element={<Music/>}/>
               <Route path='/news' element={<News/>}/>
-              <Route path='/users' element={<UsersContainer/>}/>
+              <Route path='/users' element={<Users/>}/>
             </Routes>
           </div>
         </div>

@@ -7,7 +7,7 @@ const Profile = (props) => {
     return (
         <div className={styles.content}>
             <div>
-                <ProfileInfo/>
+                <ProfileInfo {... props }/>
             </div>
 
             <div className={styles.feedBlock}>

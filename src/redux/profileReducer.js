@@ -1,5 +1,6 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST = 'UPDATE-NEW-POST';
+const SET_PROFILE = 'SET_PROFILE';
 
 const initialState = {
   posts: [
@@ -8,6 +9,7 @@ const initialState = {
     { postId: '3', text: 'Tell me more. This must be a long post to check how the layout works.', likesCount: 14 },
   ],
   newPostText: '',
+  profile: null
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -26,6 +28,11 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         newPostText: action.text,
       };
+    case SET_PROFILE: 
+      return {
+        ...state,
+        profile: action.profile,
+      };
     default:
       return state;
   }
@@ -40,8 +47,16 @@ export const addPostActionCreator = () => {
 export const updateTextActionCreator = (text) => {
   return {
     type: UPDATE_NEW_POST,
-    text: text,
+    text
   };
 };
+
+export const setProfile = (profile) => {
+  return {
+    type: SET_PROFILE,
+    profile
+  };
+};
+
 
 export default profileReducer;
