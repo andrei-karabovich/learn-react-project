@@ -52,7 +52,7 @@ const UsersContainer = (props) => {
     }
 
     return <>
-        {props.isLoading ? <Spinner/>: null}
+        {props.isLoading && <Spinner/>}
         <Users users={props.users}
                currentPage={props.currentPage}
                totalUsersCount={props.totalUsersCount}

@@ -16,9 +16,9 @@ const ProfileContainer = (props) => {
         axios.get(endPoint).then( (response) => {
             props.setProfile(response.data);
         });
-    }, []);
+    }, [props.setProfile]);
 
-    return <Profile {... props}/>
+    return <Profile {...props}/>
 }
 
 export default connect(mapStateToProps, {setProfile}) (ProfileContainer);
