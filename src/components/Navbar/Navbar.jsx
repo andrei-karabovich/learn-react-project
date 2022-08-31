@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './Navbar.module.css';
 import { NavLink } from 'react-router-dom';
-import OnlineFriends from './OnlineFriends';
+import OnlineFriendsContainer from './OnlineFriends/OnlineFriendsContainer';
 
-const Navbar = (props) => {
+const Navbar = () => {
     return (
         <div>
             <nav className={styles.nav}>
@@ -12,6 +12,9 @@ const Navbar = (props) => {
                 </div>
                 <div className={styles.navItem}>
                     <NavLink to='/messages' className={ navData => navData.isActive ? styles.activeLink : styles.link }>Messages</NavLink>
+                </div>
+                <div className={styles.navItem}>
+                    <NavLink to='/users' className={ navData => navData.isActive ? styles.activeLink : styles.link }>Users</NavLink>
                 </div>
                 <div className={styles.navItem}>
                     <NavLink to='/news' className={ navData => navData.isActive ? styles.activeLink : styles.link }>News</NavLink>
@@ -23,7 +26,7 @@ const Navbar = (props) => {
                     <NavLink to='/settings' className={ navData => navData.isActive ? styles.activeLink : styles.link }>Settings</NavLink>
                 </div>
                 <div className={styles.onlineFriendBlock}>
-                    <OnlineFriends data={props.data}/>
+                    <OnlineFriendsContainer/>
                 </div>
             </nav>
         </div>

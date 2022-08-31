@@ -1,29 +1,30 @@
 import React from 'react';
 import styles from './Feed.module.css';
 import Post from './Post';
-import { addPostActionCreator, updateTextActionCreator } from '../../../redux/profileReducer';
 
 const Feed = (props) => {
-    let postElements = props.data.posts.map((post) => <Post message={post.text} likes={post.likesCount}/>);
+    let postElements = props.posts.map((post) => <Post message={post.text} likes={post.likesCount} key={post.postId}/>);
     let postInput = React.useRef();
 
     const createPost = () => {
-        const action = addPostActionCreator();
-        props.dispatch(action);
+        props.onPostCreate();
     }
 
-    const onPostInput = () => {
-        const action = updateTextActionCreator(postInput.current.value);
-        props.dispatch(action);
+    const updateText = () => {
+        props.onNewPostTextUpdate(postInput.current.value);
     }
 
     return (
-        <div className={styles.feed}>
-            <div>New Post</div>
-            <textarea ref={postInput} value={props.data.newPostText} onChange={onPostInput}/>
-            <button onClick={createPost}>Add Post</button>
-            Posts
-            {postElements}
+        <div className={styles.feedBlock}>
+            <div className={styles.createPostBlock}>
+                <textarea ref={postInput} value={props.newPostText} onChange={updateText} placeholder='New post' className={styles.newPostInput}/>
+                <p className={styles.buttonBlock}>
+                    <button onClick={createPost} className={styles.submitButton}>Add Post</button>
+                </p>
+            </div>
+            <div className={styles.feed}>
+                {postElements}
+            </div>
         </div>
     );
 }
