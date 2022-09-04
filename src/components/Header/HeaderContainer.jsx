@@ -10,7 +10,6 @@ const mapStateToProps = (state) => ({
 });
 
 const HeaderContainer = (props) => {
-    debugger;
     useEffect(() => {
         const endPoint = 'https://social-network.samuraijs.com/api/1.0/auth/me';
         axios.get(endPoint, {withCredentials: true}).then( (response) => {
