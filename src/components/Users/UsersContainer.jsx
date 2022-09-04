@@ -1,9 +1,9 @@
 import Users from "./Users";
 import React, { useEffect } from "react";
-import * as axios from "axios";
 import {connect} from "react-redux";
 import {inverseIsFollow, setUsers, setUsersTotalCount, setCurrentPage, toggleIsLoading} from "../../redux/usersReducer";
 import Spinner from "../common/Spinner/Spinner";
+import { serverAPI } from "../../api/api"
 
 let mapStateToProps = (state) => {
     return {
@@ -26,9 +26,8 @@ let mapDispatchToPropsObject = {
 const UsersContainer = (props) => {
     useEffect(() => {
         props.toggleIsLoading(true);
-        const endPoint = `https://social-network.samuraijs.com/api/1.0/users?count=${props.pageSize}&page=${props.currentPage}`;
-        axios.get(endPoint, {withCredentials: true}).then( (response) => {
-            props.setUsers(response.data.items);
+        serverAPI.getUsers(props.pageSize, props.currentPage).then( (response) => {
+            props.setUsers(response.items);
             props.setUsersTotalCount(90);
             props.toggleIsLoading(false);
         });
@@ -38,22 +37,17 @@ const UsersContainer = (props) => {
     const onSubscribeButtonClick = (evt) => {
         const value = evt.currentTarget.id;
         props.toggleIsLoading(true);
-        const endPoint = `https://social-network.samuraijs.com/api/1.0/follow/${value}`;
         if (checkIsFollowed(props.users, parseInt(value))) {
-            axios.delete(endPoint, {withCredentials: true, headers: {'API-KEY': 'ba9b1dee-b3f7-496b-b2e2-9c9d07e8dd6a'}}).then( (response) => {
+            serverAPI.followUser(value).then( (response) => {
                 if(response && response.data.resultCode === 0) {
                     props.inverseIsFollow(parseInt(value));
-                } else {
-                    alert('Something went wrong');
                 }
                 props.toggleIsLoading(false);
             });
         } else {
-            axios.post(endPoint, {}, {withCredentials: true, headers: {'API-KEY': 'ba9b1dee-b3f7-496b-b2e2-9c9d07e8dd6a'}}).then( (response) => {
+            serverAPI.unfollowUser(value).then( (response) => {
                 if(response && response.data.resultCode === 0) {
                     props.inverseIsFollow(parseInt(value));
-                } else {
-                    alert('Something went wrong');
                 }
                 props.toggleIsLoading(false);
             });
@@ -67,9 +61,8 @@ const UsersContainer = (props) => {
     const onPageNumberClick = (pageNumber) => {
         props.setCurrentPage(pageNumber);
         props.toggleIsLoading(true);
-        const endPoint = `https://social-network.samuraijs.com/api/1.0/users?count=${props.pageSize}&page=${pageNumber}`;
-        axios.get(endPoint, {withCredentials: true}).then( (response) => {
-            props.setUsers(response.data.items);
+        serverAPI.getUsers(props.pageSize, pageNumber).then( (response) => {
+            props.setUsers(response.items);
             props.toggleIsLoading(false);
         }); 
     }

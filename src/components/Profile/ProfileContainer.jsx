@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import Profile from "./Profile";
-import * as axios from "axios";
 import {connect} from "react-redux";
 import { setProfile } from "../../redux/profileReducer";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { serverAPI } from "../../api/api";
 
 
 const mapStateToProps = (state) => ({
@@ -12,15 +12,13 @@ const mapStateToProps = (state) => ({
 
 
 const ProfileContainer = (props) => { 
-    debugger;
     useEffect(() => {
         let userId = props.router.params.userId;
         if (!userId) {
             userId = 2;
         }
-        const endPoint = `https://social-network.samuraijs.com/api/1.0/profile/${userId}`;
-        axios.get(endPoint).then( (response) => {
-            props.setProfile(response.data);
+        serverAPI.getProfile(userId).then( (response) => {
+            props.setProfile(response);
         });
     }, [props.setProfile]);
 
