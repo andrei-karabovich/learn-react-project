@@ -9,8 +9,13 @@
     margin-left: 1rem;
 }
 
+.authBlock {
+    margin-left: 75%;
+    margin-top: 1%;
+}
+
 .headerText {
-    margin-left: 1rem   ;
+    margin-left: 1rem;
     margin-top: 0.5rem;
     font-size: 2rem;
     text-shadow: 1px 1px 1px rgb(43, 46, 69),
