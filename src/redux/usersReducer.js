@@ -67,7 +67,7 @@ export const setCurrentPage = (pageNumber) => {
 };
 
 
-export const toggleIsLoading = (isLoading) => {
+export const setIsLoading = (isLoading) => {
   return {
     type: TOGGLE_IS_LOADING,
     isLoading

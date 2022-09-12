@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import Profile from "./Profile";
-import {connect} from "react-redux";
-import { setProfile } from "../../redux/profileReducer";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { serverAPI } from "../../api/api";
+import React, { useEffect } from 'react';
+import Profile from './Profile';
+import {connect} from 'react-redux';
+import { setProfile } from '../../redux/profileReducer';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { serverAPI } from '../../api/api';
 
 
 const mapStateToProps = (state) => ({

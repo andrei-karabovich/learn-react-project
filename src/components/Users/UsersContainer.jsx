@@ -1,9 +1,9 @@
-import Users from "./Users";
-import React, { useEffect } from "react";
-import {connect} from "react-redux";
-import {inverseIsFollow, setUsers, setUsersTotalCount, setCurrentPage, toggleIsLoading} from "../../redux/usersReducer";
-import Spinner from "../common/Spinner/Spinner";
-import { serverAPI } from "../../api/api"
+import Users from './Users';
+import React, { useEffect } from 'react';
+import {connect} from 'react-redux';
+import {inverseIsFollow, setUsers, setUsersTotalCount, setCurrentPage, setIsLoading} from '../../redux/usersReducer';
+import Spinner from '../common/Spinner/Spinner';
+import { serverAPI } from '../../api/api'
 
 let mapStateToProps = (state) => {
     return {
@@ -20,36 +20,36 @@ let mapDispatchToPropsObject = {
     setUsers,
     setUsersTotalCount,
     setCurrentPage,
-    toggleIsLoading
+    setIsLoading
 };
 
 const UsersContainer = (props) => {
     useEffect(() => {
-        props.toggleIsLoading(true);
+        props.setIsLoading(true);
         serverAPI.getUsers(props.pageSize, props.currentPage).then( (response) => {
             props.setUsers(response.items);
             props.setUsersTotalCount(90);
-            props.toggleIsLoading(false);
+            props.setIsLoading(false);
         });
     }, []);
 
 
     const onSubscribeButtonClick = (evt) => {
         const value = evt.currentTarget.id;
-        props.toggleIsLoading(true);
+        props.setIsLoading(true);
         if (checkIsFollowed(props.users, parseInt(value))) {
-            serverAPI.followUser(value).then( (response) => {
-                if(response && response.data.resultCode === 0) {
+            serverAPI.unfollowUser(value).then( (response) => {
+                if(response && response.resultCode === 0) {
                     props.inverseIsFollow(parseInt(value));
                 }
-                props.toggleIsLoading(false);
+                props.setIsLoading(false);
             });
         } else {
-            serverAPI.unfollowUser(value).then( (response) => {
-                if(response && response.data.resultCode === 0) {
+            serverAPI.followUser(value).then( (response) => {
+                if(response && response.resultCode === 0) {
                     props.inverseIsFollow(parseInt(value));
                 }
-                props.toggleIsLoading(false);
+                props.setIsLoading(false);
             });
         }
     };
@@ -60,10 +60,10 @@ const UsersContainer = (props) => {
 
     const onPageNumberClick = (pageNumber) => {
         props.setCurrentPage(pageNumber);
-        props.toggleIsLoading(true);
+        props.setIsLoading(true);
         serverAPI.getUsers(props.pageSize, pageNumber).then( (response) => {
             props.setUsers(response.items);
-            props.toggleIsLoading(false);
+            props.setIsLoading(false);
         }); 
     }
 

@@ -21,7 +21,7 @@ const App = (props) => {
               <Route path='/messages/*' element={<Conversations/>}/>
               <Route path='/profile'>
                 <Route index element={<Profile />} />
-                <Route path=":userId" element={<Profile />} />
+                <Route path=':userId' element={<Profile />} />
               </Route>
               <Route path='/settings' element={<Settings/>}/>
               <Route path='/music' element={<Music/>}/>
