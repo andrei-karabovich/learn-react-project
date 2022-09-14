@@ -1,7 +1,7 @@
 import Users from './Users';
 import React, { useEffect } from 'react';
 import {connect} from 'react-redux';
-import {inverseIsFollow, setUsers, setUsersTotalCount, setCurrentPage, setIsLoading} from '../../redux/usersReducer';
+import {inverseIsFollow, setUsers, setUsersTotalCount, setCurrentPage, setIsLoading, setFollowingInProgress} from '../../redux/usersReducer';
 import Spinner from '../common/Spinner/Spinner';
 import { serverAPI } from '../../api/api'
 
@@ -11,7 +11,8 @@ let mapStateToProps = (state) => {
         currentPage: state.usersPage.currentPage,
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
-        isLoading: state.usersPage.isLoading
+        isLoading: state.usersPage.isLoading,
+        followingInProgress: state.usersPage.followingInProgress
     }
 };
 
@@ -20,7 +21,8 @@ let mapDispatchToPropsObject = {
     setUsers,
     setUsersTotalCount,
     setCurrentPage,
-    setIsLoading
+    setIsLoading,
+    setFollowingInProgress
 };
 
 const UsersContainer = (props) => {
@@ -35,21 +37,24 @@ const UsersContainer = (props) => {
 
 
     const onSubscribeButtonClick = (evt) => {
-        const value = evt.currentTarget.id;
+        const value = parseInt(evt.currentTarget.id);
         props.setIsLoading(true);
-        if (checkIsFollowed(props.users, parseInt(value))) {
+        props.setFollowingInProgress(true, value);
+        if (checkIsFollowed(props.users, value)) {
             serverAPI.unfollowUser(value).then( (response) => {
                 if(response && response.resultCode === 0) {
-                    props.inverseIsFollow(parseInt(value));
+                    props.inverseIsFollow(value);
                 }
                 props.setIsLoading(false);
+                props.setFollowingInProgress(false, value);
             });
         } else {
             serverAPI.followUser(value).then( (response) => {
                 if(response && response.resultCode === 0) {
-                    props.inverseIsFollow(parseInt(value));
+                    props.inverseIsFollow(value);
                 }
                 props.setIsLoading(false);
+                props.setFollowingInProgress(false, value);
             });
         }
     };
@@ -74,7 +79,8 @@ const UsersContainer = (props) => {
                totalUsersCount={props.totalUsersCount}
                pageSize={props.pageSize}
                onPageNumberClick={onPageNumberClick}
-               onSubscribeButtonClick={onSubscribeButtonClick}/>
+               onSubscribeButtonClick={onSubscribeButtonClick}
+               followingInProgress={props.followingInProgress}/>
     </>
 }
 

@@ -21,7 +21,7 @@ const Users = (props) => {
                 <NavLink to={`/profile/${u.id}`}>
                     {u.name}
                 </NavLink>
-                <button id={u.id} onClick={props.onSubscribeButtonClick}>{u.followed ? 'Unfollow' : 'Follow'}</button>
+                <button disabled={props.followingInProgress.some( (item) => item === u.id)} id={u.id} onClick={props.onSubscribeButtonClick}>{u.followed ? 'Unfollow' : 'Follow'}</button>
             </div>
             )}
         </div>

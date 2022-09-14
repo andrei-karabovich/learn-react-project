@@ -3,16 +3,20 @@ const SET_USERS = 'SET_USERS';
 const SET_USERS_TOTAL_COUNT = 'SET_USERS_TOTAL_COUNT';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const TOGGLE_IS_LOADING = 'TOGGLE_IS_LOADING';
+const SET_IS_FOLLOWING_IN_PROGRESS = 'SET_IS_FOLLOWING_IN_PROGRESS';
+
 
 const initialState = {
   users: [],
   currentPage: 1,
   pageSize: 5,
   totalUsersCount: 0,
+  followingInProgress: [],
   isLoading: false
 };
 
 const usersReducer = (state = initialState, action) => {
+  debugger;
   switch (action.type) {
     case INVERSE_FOLLOW:
     return {
@@ -31,7 +35,14 @@ const usersReducer = (state = initialState, action) => {
     case SET_CURRENT_PAGE:
       return { ...state, currentPage: action.pageNumber}    
     case TOGGLE_IS_LOADING:
-      return { ...state, isLoading: action.isLoading}    
+      return { ...state, isLoading: action.isLoading}   
+    case SET_IS_FOLLOWING_IN_PROGRESS:
+        return { 
+          ...state, 
+          followingInProgress: action.isFollowingInProgress ?
+          [...state.followingInProgress, action.userId] :
+          state.followingInProgress.filter(id => id !== action.userId)
+    }   
     default:
       return state;
   }
@@ -73,5 +84,15 @@ export const setIsLoading = (isLoading) => {
     isLoading
   };
 };
+
+
+export const setFollowingInProgress = (isFollowingInProgress, userId) => {
+  return {
+    type: SET_IS_FOLLOWING_IN_PROGRESS,
+    isFollowingInProgress, 
+    userId
+  };
+};
+
 
 export default usersReducer;
