@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import Profile from './Profile';
 import {connect} from 'react-redux';
-import { setProfile } from '../../redux/profileReducer';
+import { getProfile } from '../../redux/profileReducer';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { serverAPI } from '../../api/api';
 
 
 const mapStateToProps = (state) => ({
@@ -17,10 +16,8 @@ const ProfileContainer = (props) => {
         if (!userId) {
             userId = 2;
         }
-        serverAPI.getProfile(userId).then( (response) => {
-            props.setProfile(response);
-        });
-    }, [props.setProfile]);
+        props.getProfile(userId);
+    }, [props.getProfile]);
 
     return <Profile {...props}/>
 }
@@ -42,4 +39,4 @@ function withRouter(Component) {
   }
 
 
-export default connect(mapStateToProps, {setProfile}) (withRouter(ProfileContainer));
+export default connect(mapStateToProps, {getProfile}) (withRouter(ProfileContainer));

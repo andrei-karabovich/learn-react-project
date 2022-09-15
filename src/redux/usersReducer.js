@@ -1,3 +1,5 @@
+import { serverAPI } from '../api/api';
+
 const INVERSE_FOLLOW = 'INVERSE_FOLLOW';
 const SET_USERS = 'SET_USERS';
 const SET_USERS_TOTAL_COUNT = 'SET_USERS_TOTAL_COUNT';
@@ -16,7 +18,6 @@ const initialState = {
 };
 
 const usersReducer = (state = initialState, action) => {
-  debugger;
   switch (action.type) {
     case INVERSE_FOLLOW:
     return {
@@ -93,6 +94,46 @@ export const setFollowingInProgress = (isFollowingInProgress, userId) => {
     userId
   };
 };
+
+export const followUser = (userId) => {
+  return (dispatch) => {
+      dispatch(setIsLoading(true));
+      dispatch(setFollowingInProgress(true, userId));
+      serverAPI.followUser(userId).then( (response) => {
+        if (response && response.resultCode === 0) {
+          dispatch(inverseIsFollow(userId));
+        }
+        dispatch(setIsLoading(false));
+        dispatch(setFollowingInProgress(false, userId));
+    });
+  }
+}  
+
+export const unfollowUser = (userId) => {
+  return (dispatch) => {
+      dispatch(setIsLoading(true));
+      dispatch(setFollowingInProgress(true, userId));
+      serverAPI.unfollowUser(userId).then( (response) => {
+        if (response && response.resultCode === 0) {
+          dispatch(inverseIsFollow(userId));
+        }
+        dispatch(setIsLoading(false));
+        dispatch(setFollowingInProgress(false, userId));
+    });
+  }
+}  
+
+export const getUsers = (pageSize, currentPage) => {
+    return (dispatch) => {
+      dispatch(setIsLoading(true));
+      serverAPI.getUsers(pageSize, currentPage).then( (response) => {
+        dispatch(setUsers(response.items));
+        dispatch(setUsersTotalCount(90));
+        dispatch(setIsLoading(false));
+      });
+  }
+}
+
 
 
 export default usersReducer;

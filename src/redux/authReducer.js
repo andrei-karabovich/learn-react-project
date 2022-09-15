@@ -1,4 +1,8 @@
+import { serverAPI } from '../api/api';
+
 const SET_AUTH_DATA = 'SET_AUTH_DATA';
+const SUCCESS_RESPONSE_CODE = 0;
+
 
 const initialState = {
     isAuth: false,
@@ -25,5 +29,16 @@ export const setAuthData = (id, username, email) => {
     data: {id, username, email}
   };
 };
+
+export const getAuthData = () => {
+  return (dispatch) => {
+    serverAPI.checkAuth().then( (response) => {
+      if (response && response.resultCode === SUCCESS_RESPONSE_CODE) {
+          const {email, id, login} = {...response.data};
+          dispatch(setAuthData(id, login, email));
+      }
+    });
+  }
+}
 
 export default authReducer;

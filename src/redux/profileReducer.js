@@ -1,3 +1,5 @@
+import { serverAPI } from '../api/api';
+
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST = 'UPDATE-NEW-POST';
 const SET_PROFILE = 'SET_PROFILE';
@@ -57,6 +59,15 @@ export const setProfile = (profile) => {
     profile
   };
 };
+
+
+export const getProfile = (userId) => {
+  return (dispatch) => {
+    serverAPI.getProfile(userId).then( (response) => {
+      dispatch(setProfile(response));
+    });
+  }
+}
 
 
 export default profileReducer;
