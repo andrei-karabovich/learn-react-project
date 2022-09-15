@@ -8,6 +8,7 @@ import Profile from './components/Profile';
 import Users from './components/Users';
 import Conversations from './components/Conversations';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Login from './components/Login/Login';
 
 const App = (props) => {
   return (
@@ -27,6 +28,7 @@ const App = (props) => {
               <Route path='/music' element={<Music/>}/>
               <Route path='/news' element={<News/>}/>
               <Route path='/users' element={<Users/>}/>
+              <Route path='/login' element={<Login/>}/>
             </Routes>
           </div>
         </div>
