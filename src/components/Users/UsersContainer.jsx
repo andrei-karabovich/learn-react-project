@@ -42,8 +42,7 @@ const UsersContainer = (props) => {
     };
 
     const onPageNumberClick = (pageNumber) => {
-        props.setCurrentPage(pageNumber);
-        props.getUsers(props.pageSize, props.pageNumber);
+        props.getUsers(props.pageSize, pageNumber);
     }
 
     return <>

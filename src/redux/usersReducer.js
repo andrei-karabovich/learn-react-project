@@ -125,6 +125,7 @@ export const unfollowUser = (userId) => {
 
 export const getUsers = (pageSize, currentPage) => {
     return (dispatch) => {
+      dispatch(setCurrentPage(currentPage));
       dispatch(setIsLoading(true));
       serverAPI.getUsers(pageSize, currentPage).then( (response) => {
         dispatch(setUsers(response.items));
