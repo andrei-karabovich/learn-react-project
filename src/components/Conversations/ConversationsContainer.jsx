@@ -2,13 +2,13 @@ import React from 'react';
 import Conversations from './Conversations';
 import { addMessageActionCreator, updateMessageActionCreator } from '../../redux/conversationsReducer';
 import {connect} from 'react-redux';
+import withAuthReducer from '../../hoc/withAuthCheck';
 
 let mapStateToProps = (state) => {
     return {
         dialogs: state.conversationsPage.dialogs,
         messages: state.conversationsPage.messages,
-        newMessageText: state.conversationsPage.newMessageText,
-        isAuth: state.auth.isAuth
+        newMessageText: state.conversationsPage.newMessageText
     }
 };
 
@@ -26,6 +26,6 @@ let mapDispatchToProps = (dispatch) => {
 };
 
 
-const ConversationsContainer = connect(mapStateToProps, mapDispatchToProps)(Conversations);
+const ConversationsContainer = withAuthReducer(connect(mapStateToProps, mapDispatchToProps)(Conversations));
 
 export default ConversationsContainer;

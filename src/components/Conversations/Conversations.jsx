@@ -2,10 +2,8 @@ import React, { useEffect } from 'react';
 import Chat from './Chat';
 import Message from './Message';
 import styles from './Conversations.module.css';
-import { useNavigate } from 'react-router-dom';
 
 const Conversations = (props) => {
-    let navigate = useNavigate();
 
     const messageInput = React.createRef();
     let dialogElements = props.dialogs.map((dialog) => <Chat chatId={dialog.chatId} key={dialog.chatId} name={dialog.companyonName} isActive={dialog.isActive}/>);
@@ -18,12 +16,6 @@ const Conversations = (props) => {
     const sendMessage = () => {
         props.onSendMessage();
     };
-
-    useEffect(() => {
-        if (!props.isAuth){
-            return navigate("/login")
-        }
-    },[]);
 
     return (
         <div className={styles.dialogs}>
