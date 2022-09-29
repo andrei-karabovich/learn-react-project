@@ -1,8 +1,10 @@
 import React from 'react';
 import Spinner from '../../common/Spinner/Spinner';
 import styles from './ProfileInfo.module.css';
+import ProfileStatus from './Status/ProfileStatus';
 
 const ProfileInfo = (props) => {
+    debugger;
     if(!props.profile) {
         return <Spinner/>
     }
@@ -14,7 +16,9 @@ const ProfileInfo = (props) => {
                 <img alt='avatar' src={props.profile.photos.large ? props.profile.photos.large : 'https://www.w3schools.com/howto/img_avatar.png' } className={styles.avatar}></img>
             </div>
             <div>
-                <div className={styles.descriptionBlock}>This is my test page! Apparantely here will be some user details</div>
+                <div className={styles.descriptionBlock}>
+                    <ProfileStatus status="This is my test status"/>
+                </div>
             </div>
         </div>
     );
