@@ -3,12 +3,11 @@ import Profile from './Profile';
 import {connect} from 'react-redux';
 import { getProfile } from '../../redux/profileReducer';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-
+import { compose } from 'redux';
 
 const mapStateToProps = (state) => ({
     profile: state.profilePage.profile
 });
-
 
 const ProfileContainer = (props) => { 
     useEffect(() => {
@@ -39,4 +38,8 @@ function withRouter(Component) {
   }
 
 
-export default connect(mapStateToProps, {getProfile}) (withRouter(ProfileContainer));
+export default compose (
+  withRouter,
+  connect(mapStateToProps, {getProfile})
+)(ProfileContainer);
+

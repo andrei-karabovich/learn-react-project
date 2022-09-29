@@ -3,6 +3,7 @@ import Conversations from './Conversations';
 import { addMessageActionCreator, updateMessageActionCreator } from '../../redux/conversationsReducer';
 import {connect} from 'react-redux';
 import withAuthReducer from '../../hoc/withAuthCheck';
+import { compose } from 'redux';
 
 let mapStateToProps = (state) => {
     return {
@@ -26,6 +27,6 @@ let mapDispatchToProps = (dispatch) => {
 };
 
 
-const ConversationsContainer = withAuthReducer(connect(mapStateToProps, mapDispatchToProps)(Conversations));
-
-export default ConversationsContainer;
+export default compose( withAuthReducer,
+                        connect(mapStateToProps, mapDispatchToProps)
+)(Conversations);
