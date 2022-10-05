@@ -1,10 +1,9 @@
 import React from 'react';
 import Spinner from '../../common/Spinner/Spinner';
 import styles from './ProfileInfo.module.css';
-import ProfileStatus from './Status/ProfileStatus';
+import ProfileStatusContainer from './Status/ProfileStatusContainer';
 
 const ProfileInfo = (props) => {
-    debugger;
     if(!props.profile) {
         return <Spinner/>
     }
@@ -17,7 +16,7 @@ const ProfileInfo = (props) => {
             </div>
             <div>
                 <div className={styles.descriptionBlock}>
-                    <ProfileStatus status="This is my test status"/>
+                    <ProfileStatusContainer/>
                 </div>
             </div>
         </div>

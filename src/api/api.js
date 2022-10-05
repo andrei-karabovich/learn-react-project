@@ -35,5 +35,21 @@ export const serverAPI = {
         return api.get('/auth/me').then((response) => {
             return response.data
         }); 
+    },
+
+    getStatus: (userId) => {
+        return api.get(`/profile/status/${userId}`).then((response) => {
+            if (!response.data) {
+                response.data = '';
+            }
+            return response.data;
+        }); 
+    },
+
+    updateStatus: (statusString) => {
+        const postBody = {status: statusString};
+        return api.put('/profile/status', postBody).then((response) => {
+            return response.data
+        }); 
     }
 }

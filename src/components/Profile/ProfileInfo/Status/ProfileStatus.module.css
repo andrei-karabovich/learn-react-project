@@ -1,0 +1,5 @@
+.statusInputBlock {
+    min-width: 50px;
+    min-height: 10px;
+    border: 1px solid black;
+}   

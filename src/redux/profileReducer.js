@@ -3,6 +3,7 @@ import { serverAPI } from '../api/api';
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST = 'UPDATE-NEW-POST';
 const SET_PROFILE = 'SET_PROFILE';
+const SET_STATUS = 'SET_STATUS';
 
 const initialState = {
   posts: [
@@ -11,7 +12,8 @@ const initialState = {
     { postId: '3', text: 'Tell me more. This must be a long post to check how the layout works.', likesCount: 14 },
   ],
   newPostText: '',
-  profile: null
+  profile: null, 
+  status: ''
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -34,6 +36,11 @@ const profileReducer = (state = initialState, action) => {
       return {
         ...state,
         profile: action.profile,
+      };
+    case SET_STATUS: 
+      return {
+        ...state,
+        status: action.status,
       };
     default:
       return state;
@@ -60,6 +67,13 @@ export const setProfile = (profile) => {
   };
 };
 
+export const setStatus = (status) => {
+  return {
+    type: SET_STATUS,
+    status
+  };
+};
+
 
 export const getProfile = (userId) => {
   return (dispatch) => {
@@ -67,7 +81,22 @@ export const getProfile = (userId) => {
       dispatch(setProfile(response));
     });
   }
-}
+};
 
+export const getStatus = (userId) => {
+  return (dispatch) => {
+    serverAPI.getStatus(userId).then( (response) => {
+      dispatch(setStatus(response));
+    });
+  }
+};
+
+export const updateStatus = (statusMessage) => {
+  return (dispatch) => {
+    serverAPI.updateStatus(statusMessage).then( (response) => {
+      dispatch(setStatus(statusMessage));
+    });
+  }
+}
 
 export default profileReducer;
