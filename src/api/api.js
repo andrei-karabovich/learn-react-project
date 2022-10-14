@@ -51,5 +51,11 @@ export const serverAPI = {
         return api.put('/profile/status', postBody).then((response) => {
             return response.data
         }); 
+    },
+
+    login: (postBody) => {
+        return api.post('/auth/login', postBody).then((response) => {
+            return response.data
+        }); 
     }
 }

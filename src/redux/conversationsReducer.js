@@ -1,5 +1,4 @@
 const ADD_MESSAGE = 'ADD-MESSAGE';
-const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE';
 
 const initialState = {
   dialogs: [
@@ -12,8 +11,7 @@ const initialState = {
     { chatId: '1', message: 'Hello', isOutbound: true },
     { chatId: '2', message: 'How are you today?', isOutbound: true },
     { chatId: '3', message: 'Tell me more', isOutbound: false },
-  ],
-  newMessageText: '',
+  ]
 };
 
 const conversationsReducer = (state = initialState, action) => {
@@ -23,30 +21,18 @@ const conversationsReducer = (state = initialState, action) => {
         ...state,
         messages: [
           ...state.messages,
-          { chatId: '1', message: state.newMessageText, isOutbound: true },
-        ],
-        newMessageText: '',
+          { chatId: '222', message: action.message, isOutbound: true },
+        ]
       };
-    case UPDATE_NEW_MESSAGE:
-        return {
-          ...state,
-          newMessageText: action.message
-        }
     default:
       return state;
   }
 };
 
-export const addMessageActionCreator = () => {
+export const addMessageActionCreator = (message) => {
   return {
     type: ADD_MESSAGE,
-  };
-};
-
-export const updateMessageActionCreator = (message) => {
-  return {
-    type: UPDATE_NEW_MESSAGE,
-    message: message,
+    message: message
   };
 };
 

@@ -1,7 +1,6 @@
 import { serverAPI } from '../api/api';
 
 const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST = 'UPDATE-NEW-POST';
 const SET_PROFILE = 'SET_PROFILE';
 const SET_STATUS = 'SET_STATUS';
 
@@ -11,7 +10,6 @@ const initialState = {
     { postId: '2', text: 'How are you today?', likesCount: 23 },
     { postId: '3', text: 'Tell me more. This must be a long post to check how the layout works.', likesCount: 14 },
   ],
-  newPostText: '',
   profile: null, 
   status: ''
 };
@@ -22,15 +20,9 @@ const profileReducer = (state = initialState, action) => {
       return {
         ...state,
         posts: [
-        { postId: '4', text: state.newPostText, likesCount: 0 },
+        { postId: '4', text: action.text, likesCount: 0 },
           ...state.posts,
-        ],
-        newPostText: '',
-      };
-    case UPDATE_NEW_POST:
-      return {
-        ...state,
-        newPostText: action.text,
+        ]
       };
     case SET_PROFILE: 
       return {
@@ -47,15 +39,9 @@ const profileReducer = (state = initialState, action) => {
   }
 };
 
-export const addPostActionCreator = () => {
+export const addPostActionCreator = (text) => {
   return {
     type: ADD_POST,
-  };
-};
-
-export const updateTextActionCreator = (text) => {
-  return {
-    type: UPDATE_NEW_POST,
     text
   };
 };

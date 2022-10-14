@@ -14,7 +14,7 @@ const withAuthReducer = (Component) => {
 
         useEffect(() => {
             if (!props.isAuth){
-                return navigate("/login")
+                return navigate('/login')
             }
         },[]);
 

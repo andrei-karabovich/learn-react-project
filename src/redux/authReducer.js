@@ -41,4 +41,15 @@ export const getAuthData = () => {
   }
 }
 
+export const login = (loginData) => {
+  return (dispatch) => {
+    serverAPI.login(loginData).then( (response) => {
+      if (response && response.resultCode === SUCCESS_RESPONSE_CODE) {
+          dispatch(setAuthData(response.data.userId, 'temp_login', loginData.email));
+      }
+    });
+  }
+}
+
+
 export default authReducer;
