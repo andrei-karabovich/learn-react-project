@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import styles from './Login.module.css';
 import {login} from '../../redux/authReducer'
 import {connect} from 'react-redux';
@@ -7,10 +8,12 @@ import {connect} from 'react-redux';
 
 
 const Login = (props) => {
+    let navigate = useNavigate();
     const { register, handleSubmit, reset } = useForm();
     const onSubmit = (data) => {
         props.login(data);
         reset();
+        return navigate('/profile');
     }
     return (
         <div className={styles.loginBlock}>

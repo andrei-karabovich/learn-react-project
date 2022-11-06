@@ -1,6 +1,8 @@
 import { serverAPI } from '../api/api';
 
 const SET_AUTH_DATA = 'SET_AUTH_DATA';
+const DELETE_AUTH_DATA = 'DELETE_AUTH_DATA';
+
 const SUCCESS_RESPONSE_CODE = 0;
 
 
@@ -18,6 +20,8 @@ const authReducer = (state = initialState, action) => {
        ...action.data,
        isAuth: true
     } 
+    case DELETE_AUTH_DATA:
+      return initialState
     default:
       return state;
   }
@@ -29,6 +33,13 @@ export const setAuthData = (id, username, email) => {
     data: {id, username, email}
   };
 };
+
+export const deleteAuthData = () => {
+  return {
+    type: DELETE_AUTH_DATA
+  };
+};
+
 
 export const getAuthData = () => {
   return (dispatch) => {
@@ -45,7 +56,17 @@ export const login = (loginData) => {
   return (dispatch) => {
     serverAPI.login(loginData).then( (response) => {
       if (response && response.resultCode === SUCCESS_RESPONSE_CODE) {
-          dispatch(setAuthData(response.data.userId, 'temp_login', loginData.email));
+          dispatch(getAuthData());
+      }
+    });
+  }
+}
+
+export const logout = () => {
+  return (dispatch) => {
+    serverAPI.logout().then( (response) => {
+      if (response && response.resultCode === SUCCESS_RESPONSE_CODE) {
+          dispatch(deleteAuthData());
       }
     });
   }

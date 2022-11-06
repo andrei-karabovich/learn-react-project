@@ -1,10 +1,9 @@
-import logo from '../../logo.svg';
-
+import logo from '../../assets/logout-svgrepo-com.svg';
 import React from 'react';
 import styles from './Header.module.css';
 import { NavLink } from 'react-router-dom';
 
-const Header = ({isAuth, username}) => {
+const Header = ({isAuth, username, logout}) => {
     return (
         <header className={styles.header}>
             <span className={styles.headerText}>Learn React</span>
@@ -12,8 +11,14 @@ const Header = ({isAuth, username}) => {
 
             <div className={styles.authBlock}>
                 <span>
-                   { isAuth ? username :  <NavLink to={'/login/'}>Login</NavLink>
- }
+                   { isAuth ?
+                        <div className={styles.userNameBlock}>
+                            <span>{username}</span>
+                            <img className={styles.logoutIcon} src={logo} onClick={logout}/> 
+                        </div>
+                        :
+                        <NavLink to={'/login/'}>Login</NavLink>
+                    }
                 </span>
             </div>
         </header>

@@ -16,7 +16,7 @@ const Feed = (props) => {
         <div className={styles.feedBlock}>
             <div className={styles.createPostBlock}>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <input type={'textarea'} placeholder={'New post'} className={styles.newPostInput}  {...register('postText')}/>
+                    <input type={'textarea'} placeholder={'New post'} className={styles.newPostInput}  {...register('postText', { required: true, maxLength: 20 })}/>
                     <p className={styles.buttonBlock}>
                         <input type={'submit'} value={'Add post'} className={styles.submitButton}></input>
                     </p>

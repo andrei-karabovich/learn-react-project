@@ -57,5 +57,12 @@ export const serverAPI = {
         return api.post('/auth/login', postBody).then((response) => {
             return response.data
         }); 
+    },
+
+    logout: () => {
+        return api.delete('/auth/login').then((response) => {
+            return response.data
+        }); 
     }
+    
 }
