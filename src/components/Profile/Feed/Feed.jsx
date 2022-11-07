@@ -2,9 +2,10 @@ import React from 'react';
 import styles from './Feed.module.css';
 import Post from './Post';
 import { useForm } from 'react-hook-form';
+import { InputText } from '../../common/InputControls/InputControls';
 
 const Feed = (props) => {
-    const { register, handleSubmit, reset } = useForm();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
     let postElements = props.posts.map((post) => <Post message={post.text} likes={post.likesCount} key={post.postId}/>);
 
     const onSubmit = (data) => {
@@ -16,7 +17,7 @@ const Feed = (props) => {
         <div className={styles.feedBlock}>
             <div className={styles.createPostBlock}>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <input type={'textarea'} placeholder={'New post'} className={styles.newPostInput}  {...register('postText', { required: true, maxLength: 20 })}/>
+                    <InputText type={'textarea'} placeholder={'New post'} className={styles.newPostInput} register={register} name={'postText'} validationSchema={{ required: true, maxLength: 20 }} errors={errors.postText} />
                     <p className={styles.buttonBlock}>
                         <input type={'submit'} value={'Add post'} className={styles.submitButton}></input>
                     </p>
