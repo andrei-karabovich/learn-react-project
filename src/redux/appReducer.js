@@ -1,3 +1,5 @@
+import { getAuthData } from './authReducer';
+
 const SET_IS_INITIALIZED = 'SET_IS_INITIALIZED';
 
 const initialState = {
@@ -21,3 +23,13 @@ export const setIsInitialized = (isInitialized) => {
     isInitialized
   };
 };
+
+
+export const initialize = () => {
+  return (dispatch) => {
+    const getAuthDataPromise = dispatch(getAuthData());
+    Promise.all([getAuthDataPromise]).then(() => {
+      dispatch.setIsInitialized(true);
+    });
+  }
+}

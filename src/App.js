@@ -8,7 +8,7 @@ import Profile from './components/Profile';
 import Users from './components/Users';
 import Conversations from './components/Conversations';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { getAuthData } from './redux/authReducer';
+import { initialize } from './redux/appReducer';
 import Login from './components/Login/Login';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -25,7 +25,7 @@ const mapStateToProps = (state) => {
 const App = (props) => {
 
   useEffect(() => {   
-    props.getAuthData();
+    props.initialize();
   }, []);
 
   if (!props.isInitialized) {
@@ -56,4 +56,4 @@ const App = (props) => {
   );
 }
 
-export default compose(connect(mapStateToProps, { getAuthData }))(App);
+export default compose(connect(mapStateToProps, { initialize }))(App);
