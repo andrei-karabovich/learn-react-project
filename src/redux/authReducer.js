@@ -52,11 +52,16 @@ export const getAuthData = () => {
   }
 }
 
-export const login = (loginData) => {
+export const login = (loginData, setError, navigate) => {
   return (dispatch) => {
     serverAPI.login(loginData).then( (response) => {
       if (response && response.resultCode === SUCCESS_RESPONSE_CODE) {
           dispatch(getAuthData());
+          navigate('/profile');
+      } else if(response && response.resultCode !== SUCCESS_RESPONSE_CODE) {
+        setError('commonErrors', { type: 'server', message: response.messages[0] });
+      } else {
+        setError('commonErrors', { type: 'server', message: 'Something went wrong' });
       }
     });
   }
