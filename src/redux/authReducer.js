@@ -1,4 +1,5 @@
 import { serverAPI } from '../api/api';
+import { setIsInitialized} from './appReducer';
 
 const SET_AUTH_DATA = 'SET_AUTH_DATA';
 const DELETE_AUTH_DATA = 'DELETE_AUTH_DATA';
@@ -44,10 +45,11 @@ export const deleteAuthData = () => {
 export const getAuthData = () => {
   return (dispatch) => {
     serverAPI.checkAuth().then( (response) => {
-      if (response && response.resultCode === SUCCESS_RESPONSE_CODE) {
-          const {email, id, login} = {...response.data};
-          dispatch(setAuthData(id, login, email));
-      }
+        if (response && response.resultCode === SUCCESS_RESPONSE_CODE) {
+            const {email, id, login} = {...response.data};
+            dispatch(setAuthData(id, login, email));
+        }
+        dispatch(setIsInitialized(true));
     });
   }
 }

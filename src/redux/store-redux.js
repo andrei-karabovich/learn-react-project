@@ -5,6 +5,7 @@ import profileReducer from '../redux/profileReducer';
 import usersReducer from '../redux/usersReducer';
 import authReducer from './authReducer';
 import thunkMiddleware from 'redux-thunk';
+import {appReducer} from './appReducer';
 
 
 const reducers = combineReducers( {
@@ -12,7 +13,8 @@ const reducers = combineReducers( {
     profilePage: profileReducer,
     navigationBar: navigationReducer,
     usersPage: usersReducer,
-    auth: authReducer
+    auth: authReducer,
+    app: appReducer
 });
 
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
