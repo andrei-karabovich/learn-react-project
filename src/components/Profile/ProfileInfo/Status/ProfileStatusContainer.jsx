@@ -7,14 +7,15 @@ import withRouter from '../../../../hoc/withRouter';
 
 
 const mapStateToProps = (state) => ({
-    status: state.profilePage.status
+    status: state.profilePage.status,
+    authorizedUserId: state.auth.id
 });
 
 const ProfileStatusContainer = (props) => {
     useEffect(() => {
         let userId = props.router.params.userId;
         if (!userId) {
-            userId = 25743;
+            userId = props.authorizedUserId;
         }
         props.getStatus(userId);
     }, [props.getStatus]);
