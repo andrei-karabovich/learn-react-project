@@ -1,17 +1,18 @@
 import Users from './Users';
 import React, { useEffect } from 'react';
 import {connect} from 'react-redux';
-import {setCurrentPage, followUser, unfollowUser, getUsers} from '../../redux/usersReducer';
+import {setCurrentPage, followUser, unfollowUser, requestUsers} from '../../redux/usersReducer';
 import Spinner from '../common/Spinner/Spinner';
+import { getCurrentPage, getFollowingInProgress, getIsLoading, getPageSize, getTotalUsersCount, getUsers } from '../../redux/users-selectors';
 
 let mapStateToProps = (state) => {
     return {
-        users: state.usersPage.users,
-        currentPage: state.usersPage.currentPage,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        isLoading: state.usersPage.isLoading,
-        followingInProgress: state.usersPage.followingInProgress,
+        users: getUsers(state),
+        currentPage: getCurrentPage(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        isLoading: getIsLoading(state),
+        followingInProgress: getFollowingInProgress(state)
     }
 };
 
@@ -19,12 +20,12 @@ let mapDispatchToPropsObject = {
     setCurrentPage,
     followUser,
     unfollowUser,
-    getUsers
+    requestUsers
 };
 
 const UsersContainer = (props) => {
     useEffect(() => {
-        props.getUsers(props.pageSize, props.currentPage);
+        props.requestUsers(props.pageSize, props.currentPage);
     }, []);
 
 
@@ -42,7 +43,7 @@ const UsersContainer = (props) => {
     };
 
     const onPageNumberClick = (pageNumber) => {
-        props.getUsers(props.pageSize, pageNumber);
+        props.requestUsers(props.pageSize, pageNumber);
     }
 
     return <>

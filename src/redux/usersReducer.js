@@ -123,7 +123,7 @@ export const unfollowUser = (userId) => {
   }
 }  
 
-export const getUsers = (pageSize, currentPage) => {
+export const requestUsers = (pageSize, currentPage) => {
     return (dispatch) => {
       dispatch(setCurrentPage(currentPage));
       dispatch(setIsLoading(true));
