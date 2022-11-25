@@ -3,16 +3,16 @@ import React, { useEffect } from 'react';
 import {connect} from 'react-redux';
 import {setCurrentPage, followUser, unfollowUser, requestUsers} from '../../redux/usersReducer';
 import Spinner from '../common/Spinner/Spinner';
-import { getCurrentPage, getFollowingInProgress, getIsLoading, getPageSize, getTotalUsersCount, getUsers } from '../../redux/users-selectors';
+import { selectCurrentPage, selectFollowingInProgress, selectIsLoading, selectPageSize, selectTotalUsersCount, selectUsers } from '../../redux/users-selectors';
 
 let mapStateToProps = (state) => {
     return {
-        users: getUsers(state),
-        currentPage: getCurrentPage(state),
-        pageSize: getPageSize(state),
-        totalUsersCount: getTotalUsersCount(state),
-        isLoading: getIsLoading(state),
-        followingInProgress: getFollowingInProgress(state)
+        users: selectUsers(state),
+        currentPage: selectCurrentPage(state),
+        pageSize: selectPageSize(state),
+        totalUsersCount: selectTotalUsersCount(state),
+        isLoading: selectIsLoading(state),
+        followingInProgress: selectFollowingInProgress(state)
     }
 };
 
@@ -30,7 +30,7 @@ const UsersContainer = (props) => {
 
 
     const onSubscribeButtonClick = (evt) => {
-        const value = parseInt(evt.currentTarget.id);
+        const value = parseInt(evt.currentTarselect.id);
         if (checkIsFollowed(props.users, value)) {
             props.unfollowUser(value);
         } else {

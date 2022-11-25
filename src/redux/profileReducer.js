@@ -1,10 +1,9 @@
 import { serverAPI } from '../api/api';
 
-const ADD_POST = 'ADD-POST';
-const DELETE_POST = 'DELETE_POST';
-
-const SET_PROFILE = 'SET_PROFILE';
-const SET_STATUS = 'SET_STATUS';
+const ADD_POST = 'profileReducer/ADD-POST';
+const DELETE_POST = 'profileReducer/DELETE_POST';
+const SET_PROFILE = 'profileReducer/SET_PROFILE';
+const SET_STATUS = 'profileReducer/SET_STATUS';
 
 const initialState = {
   posts: [
@@ -76,26 +75,23 @@ export const setStatus = (status) => {
 
 
 export const getProfile = (userId) => {
-  return (dispatch) => {
-    serverAPI.getProfile(userId).then( (response) => {
-      dispatch(setProfile(response));
-    });
+  return async (dispatch) => {
+    let response = await serverAPI.getProfile(userId);
+    dispatch(setProfile(response));
   }
 };
 
 export const getStatus = (userId) => {
-  return (dispatch) => {
-    serverAPI.getStatus(userId).then( (response) => {
-      dispatch(setStatus(response));
-    });
+  return async (dispatch) => {
+    let response = await serverAPI.getStatus(userId);
+    dispatch(setStatus(response));
   }
 };
 
 export const updateStatus = (statusMessage) => {
-  return (dispatch) => {
-    serverAPI.updateStatus(statusMessage).then( (response) => {
-      dispatch(setStatus(statusMessage));
-    });
+  return async (dispatch) => {
+    await serverAPI.updateStatus(statusMessage);
+    dispatch(setStatus(statusMessage));
   }
 }
 

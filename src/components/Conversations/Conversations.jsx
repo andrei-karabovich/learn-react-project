@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Chat from './Chat';
 import Message from './Message';
 import styles from './Conversations.module.css';
 import { useForm } from 'react-hook-form';
 
-const Conversations = (props) => {
+const Conversations = ({dialogs, messages,onSendMessage}) => {
     const { register, handleSubmit, reset } = useForm();
-    let dialogElements = props.dialogs.map((dialog) => <Chat chatId={dialog.chatId} key={dialog.chatId} name={dialog.companyonName} isActive={dialog.isActive}/>);
-    let messageElements = props.messages.map((messageItem) => <Message message={messageItem} key={messageItem.chatId}/>);
+    let dialogElements = dialogs.map((dialog) => <Chat chatId={dialog.chatId} key={dialog.chatId} name={dialog.companyonName} isActive={dialog.isActive}/>);
+    let messageElements = messages.map((messageItem) => <Message message={messageItem} key={messageItem.chatId}/>);
 
     const onSubmit = (data) => {
-        props.onSendMessage(data.message);
+        onSendMessage(data.message);
         reset();
     }
 

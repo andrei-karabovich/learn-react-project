@@ -4,12 +4,12 @@ import Post from './Post';
 import { useForm } from 'react-hook-form';
 import { InputText } from '../../common/InputControls/InputControls';
 
-const Feed = (props) => {
+const Feed = ({posts, onPostCreate}) => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
-    let postElements = props.posts.map((post) => <Post message={post.text} likes={post.likesCount} key={post.postId}/>);
+    let postElements = posts.map((post) => <Post message={post.text} likes={post.likesCount} key={post.postId}/>);
 
     const onSubmit = (data) => {
-        props.onPostCreate(data.postText);
+        onPostCreate(data.postText);
         reset();
     }
 

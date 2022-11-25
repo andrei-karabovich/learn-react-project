@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import { getProfile } from '../../redux/profileReducer';
 import { compose } from 'redux';
 import withRouter from '../../hoc/withRouter';
+
 const mapStateToProps = (state) => ({
     profile: state.profilePage.profile,
     authorizedUserId: state.auth.id

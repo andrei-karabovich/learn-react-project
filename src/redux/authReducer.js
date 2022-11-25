@@ -1,28 +1,40 @@
 import { serverAPI } from '../api/api';
 import { setIsInitialized} from './appReducer';
 
-const SET_AUTH_DATA = 'SET_AUTH_DATA';
-const DELETE_AUTH_DATA = 'DELETE_AUTH_DATA';
+const SET_AUTH_DATA = 'authReducer/SET_AUTH_DATA';
+const SET_LOGIN_ERROR = 'authReducer/SET_LOGIN_ERROR';
+const DELETE_AUTH_DATA = 'authReducer/DELETE_AUTH_DATA';
+const DELETE_LOGIN_ERROR = 'authReducer/DELETE_LOGIN_ERROR';
 
 const SUCCESS_RESPONSE_CODE = 0;
-
 
 const initialState = {
     isAuth: false,
     username: null,
     id: null,
-    email: null
+    email: null,
+    loginError: null
 };
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_AUTH_DATA:
-    return {
-       ...action.data,
-       isAuth: true
-    } 
+      return {
+        ...action.data,
+        isAuth: true
+      } 
     case DELETE_AUTH_DATA:
       return initialState
+    case SET_LOGIN_ERROR:
+        return {
+          ...state,
+          loginError: action.errorMessage
+    }
+    case DELETE_LOGIN_ERROR:
+      return {
+        ...state,
+        loginError: null
+      }   
     default:
       return state;
   }
@@ -41,43 +53,58 @@ export const deleteAuthData = () => {
   };
 };
 
+export const setLoginError = (errorMessage) => {
+  return {
+    type: SET_LOGIN_ERROR,
+    errorMessage
+  };
+};
+
+export const deleteLoginError = () => {
+  return {
+    type: DELETE_LOGIN_ERROR
+  };
+};
+
 
 export const getAuthData = () => {
-  return (dispatch) => {
-    serverAPI.checkAuth().then( (response) => {
-        if (response && response.resultCode === SUCCESS_RESPONSE_CODE) {
-            const {email, id, login} = {...response.data};
-            dispatch(setAuthData(id, login, email));
-        }
-        dispatch(setIsInitialized(true));
-    });
+  return async (dispatch) => {
+    let response = await serverAPI.checkAuth();
+    if (response && response.resultCode === SUCCESS_RESPONSE_CODE) {
+        const {email, id, login} = {...response.data};
+        dispatch(setAuthData(id, login, email));
+    }
+    dispatch(setIsInitialized(true));
   }
 }
 
-export const login = (loginData, setError, navigate) => {
-  return (dispatch) => {
-    serverAPI.login(loginData).then( (response) => {
-      if (response && response.resultCode === SUCCESS_RESPONSE_CODE) {
-          dispatch(getAuthData());
-          navigate('/profile');
-      } else if(response && response.resultCode !== SUCCESS_RESPONSE_CODE) {
-        setError('commonErrors', { type: 'server', message: response.messages[0] });
-      } else {
-        setError('commonErrors', { type: 'server', message: 'Something went wrong' });
-      }
-    });
+export const login = (loginData) => {
+  return async (dispatch) => {
+    let response = await serverAPI.login(loginData);
+    if (response && response.resultCode === SUCCESS_RESPONSE_CODE) {
+      dispatch(getAuthData());
+    } else if(response && response.resultCode !== SUCCESS_RESPONSE_CODE) {
+      dispatch(setLoginError(response.messages[0]));
+    } else {
+      dispatch(setLoginError('Something went wrong'));
+    }
   }
 }
 
 export const logout = () => {
-  return (dispatch) => {
-    serverAPI.logout().then( (response) => {
-      if (response && response.resultCode === SUCCESS_RESPONSE_CODE) {
-          dispatch(deleteAuthData());
-      }
-    });
+  return async (dispatch) => {
+    let response = await serverAPI.logout();
+    if (response && response.resultCode === SUCCESS_RESPONSE_CODE) {
+        dispatch(deleteAuthData());
+    }
   }
 }
+
+export const cleanLoginError = () => {
+  return async (dispatch) => {
+    dispatch(deleteLoginError());
+  }
+};
 
 
 export default authReducer;
