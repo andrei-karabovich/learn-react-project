@@ -4,17 +4,17 @@ import Settings from './components/Settings';
 import Music from './components/Music';
 import News from './components/News';
 import Navbar from './components/Navbar';
-import Profile from './components/Profile';
-import Users from './components/Users';
 import Conversations from './components/Conversations';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { initialize } from './redux/appReducer';
 import Login from './components/Login/Login';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense, lazy } from 'react';
 import Spinner from './components/common/Spinner/Spinner';
 
+const Users = lazy(() => import('./components/Users'));
+const Profile = lazy(() => import('./components/Profile'));
 
 const mapStateToProps = (state) => {
   return {
@@ -31,7 +31,8 @@ const App = (props) => {
   if (!props.isInitialized) {
     return <Spinner/>
   }
-  return (<BrowserRouter>
+  return (<BrowserRouter basename={process.env.PUBLIC_URL}>
+    <Suspense fallback={<div><Spinner /></div>}>
     <div className='app-wrapper-container'>
       <div className='app-wrapper'>
         <Header />
@@ -52,6 +53,7 @@ const App = (props) => {
         </div>
       </div>
     </div>
+    </Suspense>
   </BrowserRouter>
   );
 }
