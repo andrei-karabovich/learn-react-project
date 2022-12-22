@@ -119,7 +119,7 @@ export const requestUsers = (pageSize, currentPage) => {
       dispatch(setIsLoading(true));
       let response = await serverAPI.getUsers(pageSize, currentPage);
       dispatch(setUsers(response.items));
-      dispatch(setUsersTotalCount(90));
+      dispatch(setUsersTotalCount(response.totalCount));
       dispatch(setIsLoading(false));
   }
 }

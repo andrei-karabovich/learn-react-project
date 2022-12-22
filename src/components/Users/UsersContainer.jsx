@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {setCurrentPage, followUser, unfollowUser, requestUsers} from '../../redux/usersReducer';
 import Spinner from '../common/Spinner/Spinner';
 import { selectCurrentPage, selectFollowingInProgress, selectIsLoading, selectPageSize, selectTotalUsersCount, selectUsers } from '../../redux/users-selectors';
+import Paginator from '../common/Paginator/Paginator';
 
 let mapStateToProps = (state) => {
     return {
@@ -46,16 +47,13 @@ const UsersContainer = (props) => {
         props.requestUsers(props.pageSize, pageNumber);
     }
 
-    return <>
+    return (<>
         {props.isLoading && <Spinner/>}
+        <Paginator totalAmount={props.totalUsersCount} pageSize={props.pageSize} onPageNumberClick={onPageNumberClick} currentPage={props.currentPage}/>
         <Users users={props.users}
-               currentPage={props.currentPage}
-               totalUsersCount={props.totalUsersCount}
-               pageSize={props.pageSize}
-               onPageNumberClick={onPageNumberClick}
                onSubscribeButtonClick={onSubscribeButtonClick}
                followingInProgress={props.followingInProgress}/>
-    </>
+    </>)
 }
 
 export default connect(mapStateToProps, mapDispatchToPropsObject)(UsersContainer)
