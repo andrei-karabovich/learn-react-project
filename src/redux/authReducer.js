@@ -1,5 +1,4 @@
 import { serverAPI } from '../api/api';
-import { setIsInitialized} from './appReducer';
 
 const SET_AUTH_DATA = 'authReducer/SET_AUTH_DATA';
 const SET_LOGIN_ERROR = 'authReducer/SET_LOGIN_ERROR';
@@ -74,7 +73,6 @@ export const getAuthData = () => {
         const {email, id, login} = {...response.data};
         dispatch(setAuthData(id, login, email));
     }
-    dispatch(setIsInitialized(true));
   }
 }
 
