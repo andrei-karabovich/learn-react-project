@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/learn-react-project/static/css/main.67a8cc8f.css",
-    "main.js": "/learn-react-project/static/js/main.079ea667.js",
+    "main.js": "/learn-react-project/static/js/main.f3c0cd17.js",
     "static/css/847.2767dac9.chunk.css": "/learn-react-project/static/css/847.2767dac9.chunk.css",
     "static/js/847.18973639.chunk.js": "/learn-react-project/static/js/847.18973639.chunk.js",
     "static/css/511.948064a4.chunk.css": "/learn-react-project/static/css/511.948064a4.chunk.css",
@@ -9,7 +9,7 @@
     "static/media/logout-svgrepo-com.svg": "/learn-react-project/static/media/logout-svgrepo-com.f0f142803f279d92925bea1cb4438379.svg",
     "index.html": "/learn-react-project/index.html",
     "main.67a8cc8f.css.map": "/learn-react-project/static/css/main.67a8cc8f.css.map",
-    "main.079ea667.js.map": "/learn-react-project/static/js/main.079ea667.js.map",
+    "main.f3c0cd17.js.map": "/learn-react-project/static/js/main.f3c0cd17.js.map",
     "847.2767dac9.chunk.css.map": "/learn-react-project/static/css/847.2767dac9.chunk.css.map",
     "847.18973639.chunk.js.map": "/learn-react-project/static/js/847.18973639.chunk.js.map",
     "511.948064a4.chunk.css.map": "/learn-react-project/static/css/511.948064a4.chunk.css.map",
@@ -17,6 +17,6 @@
   },
   "entrypoints": [
     "static/css/main.67a8cc8f.css",
-    "static/js/main.079ea667.js"
+    "static/js/main.f3c0cd17.js"
   ]
 }
