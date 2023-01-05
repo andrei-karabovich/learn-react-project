@@ -63,6 +63,13 @@ export const serverAPI = {
         return api.delete('/auth/login').then((response) => {
             return response.data
         }); 
+    },
+
+    updatePhoto: (image) => {
+        let formData = new FormData();
+        formData.append('image', image); 
+        return api.put('/profile/photo', formData, {headers: {'Content-Type': 'multipart/form-data'}}).then((response) => {
+            return response.data
+        }); 
     }
-    
 }
