@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import Spinner from '../../common/Spinner/Spinner';
+import ProfileData from './ProfileData/ProfileData';
+import ProfileDataForm from './ProfileData/ProfileDataForm';
 import styles from './ProfileInfo.module.css';
 import ProfileStatusContainer from './Status/ProfileStatusContainer';
 
-const ProfileInfo = ({ profile, isOwner, updatePhoto }) => {
+const ProfileInfo = ({ profile, isOwner, updatePhoto, updateProfile}) => {
     const [file, setFile] = useState(null);
+    const [editMode, setEditMode] = useState(false);
 
     if (!profile) {
         return <Spinner />
@@ -23,6 +26,12 @@ const ProfileInfo = ({ profile, isOwner, updatePhoto }) => {
         updatePhoto(file);
     }
 
+    const handleProfileUpdate = (data) => {
+        updateProfile(data).then(() => {
+            setEditMode(false);
+        })
+    }
+
     return (
         <div className={styles.profileBlock}>
             <div>
@@ -38,6 +47,17 @@ const ProfileInfo = ({ profile, isOwner, updatePhoto }) => {
             <div>
                 <div className={styles.descriptionBlock}>
                     <ProfileStatusContainer />
+
+                    
+                    { isOwner && !editMode &&
+                        <div>
+                            <button onClick={() => {setEditMode(true)}}>Edit</button>
+                        </div>
+                    }
+
+                    { editMode ? <ProfileDataForm profile={profile} handleProfileUpdate={handleProfileUpdate}/> :
+                                <ProfileData profile={profile}/> 
+                    }
                 </div>
             </div>
         </div>

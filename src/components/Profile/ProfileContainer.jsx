@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import Profile from './Profile';
 import {connect} from 'react-redux';
-import { getProfile, updatePhoto } from '../../redux/profileReducer';
+import { getProfile, updatePhoto, updateProfile } from '../../redux/profileReducer';
 import { compose } from 'redux';
 import withRouter from '../../hoc/withRouter';
 
@@ -40,6 +40,6 @@ const ProfileContainer = (props) => {
 
 export default compose (
   withRouter,
-  connect(mapStateToProps, {getProfile, updatePhoto})
+  connect(mapStateToProps, {getProfile, updatePhoto, updateProfile})
 )(ProfileContainer);
 

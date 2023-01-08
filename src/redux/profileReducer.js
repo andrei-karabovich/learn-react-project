@@ -118,4 +118,12 @@ export const updatePhoto = (photo) => {
   }
 }
 
+export const updateProfile = (profile) => {
+  debugger;
+  return async (dispatch) => {
+    await serverAPI.updateProfile(profile);
+    dispatch(getProfile(profile.userId));
+  }
+}
+
 export default profileReducer;

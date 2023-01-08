@@ -31,6 +31,12 @@ export const serverAPI = {
         });
     },
 
+    updateProfile: (profile) => {
+        return api.put('/profile', profile).then((response) => {
+            return response.data
+        });
+    },
+
     checkAuth: () => {
         return api.get('/auth/me').then((response) => {
             return response.data
