@@ -5,12 +5,12 @@ import Music from './components/Music';
 import News from './components/News';
 import Navbar from './components/Navbar';
 import Conversations from './components/Conversations';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { initialize } from './redux/appReducer';
 import Login from './components/Login/Login';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import React, { useEffect, Suspense, lazy } from 'react';
+import React, { useEffect, Suspense, lazy, useLayoutEffect } from 'react';
 import Spinner from './components/common/Spinner/Spinner';
 
 const Users = lazy(() => import('./components/Users'));
@@ -24,13 +24,25 @@ const mapStateToProps = (state) => {
 
 const App = (props) => {
 
+  const showErrorAlert = (event) => {
+    alert(`UNHANDLED PROMISE REJECTION: ${event.reason}`);
+  }
+
   useEffect(() => {   
+    window.addEventListener("unhandledrejection", showErrorAlert);
     props.initialize();
   }, []);
+
+  useLayoutEffect(() => {
+    return () => {
+      window.removeEventListener("unhandledrejection", showErrorAlert);
+    }
+}, [])
 
   if (!props.isInitialized) {
     return <Spinner/>
   }
+
   return (<BrowserRouter basename={process.env.PUBLIC_URL}>
     <Suspense fallback={<div><Spinner /></div>}>
     <div className='app-wrapper-container'>
@@ -39,6 +51,7 @@ const App = (props) => {
         <Navbar />
         <div className='app-wrapper-content'>
           <Routes>
+            <Route path="/" element={<Navigate to="/profile" />} />
             <Route path='/messages/*' element={<Conversations />} />
             <Route path='/profile'>
               <Route index element={<Profile />} />
