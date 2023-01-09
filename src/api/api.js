@@ -71,6 +71,12 @@ export const serverAPI = {
         }); 
     },
 
+    getCaptchaUrl: () => {
+        return api.delete('/security/get-captcha-url').then((response) => {
+            return response.data
+        }); 
+    },
+
     updatePhoto: (image) => {
         let formData = new FormData();
         formData.append('image', image); 

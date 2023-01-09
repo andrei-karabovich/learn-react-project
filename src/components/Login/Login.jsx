@@ -13,11 +13,12 @@ import { InputText } from '../common/InputControls/InputControls';
 let mapStateToProps = (state) => {
     return {
         isAuth: state.auth.isAuth,
-        loginError: state.auth.loginError
+        loginError: state.auth.loginError,
+        captchaURL : state.auth.captchaURL
     }
 };
 
-const Login = ({isAuth, loginError, login, cleanLoginError}) => {
+const Login = ({isAuth, loginError, login, cleanLoginError, captchaURL}) => {
     let navigate = useNavigate();
     const { register, handleSubmit, setError, clearErrors, formState: { errors } } = useForm({mode: 'all'});
 
@@ -64,6 +65,14 @@ const Login = ({isAuth, loginError, login, cleanLoginError}) => {
                         <span>{errors.commonErrors.message}</span>
                     </div>
                 }
+
+                {captchaURL && 
+                    <div>
+                        <img src={captchaURL}></img>
+                        <InputText placeholder='captcha' name='captcha' type={'text'} register={register} validationSchema={{required: true}} onChange={clearCommonErrors}/>
+                    </div>
+                }
+
                 <input label='Login' type='submit' className={styles.submitButton}></input>
             </form>
         </div>
