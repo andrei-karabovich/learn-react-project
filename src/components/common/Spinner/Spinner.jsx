@@ -1,7 +1,7 @@
 import loader from '../../../assets/loader.gif';
-import React from "react";
+import React from 'react';
 
-const Spinner = (props) => {
+const Spinner = ({}) => {
     return  <div>
         <img src={loader}/> 
     </div>

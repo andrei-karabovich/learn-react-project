@@ -2,19 +2,17 @@ import React from 'react';
 import Chat from './Chat';
 import Message from './Message';
 import styles from './Conversations.module.css';
+import { useForm } from 'react-hook-form';
 
-const Conversations = (props) => {
-    const messageInput = React.createRef();
-    let dialogElements = props.dialogs.map((dialog) => <Chat chatId={dialog.chatId} key={dialog.chatId} name={dialog.companyonName} isActive={dialog.isActive}/>);
-    let messageElements = props.messages.map((messageItem) => <Message message={messageItem} key={messageItem.chatId}/>);
+const Conversations = ({dialogs, messages,onSendMessage}) => {
+    const { register, handleSubmit, reset } = useForm();
+    let dialogElements = dialogs.map((dialog) => <Chat chatId={dialog.chatId} key={dialog.chatId} name={dialog.companyonName} isActive={dialog.isActive}/>);
+    let messageElements = messages.map((messageItem) => <Message message={messageItem} key={messageItem.chatId}/>);
 
-    const updateNewMessageText = () => {
-        props.onMessageInput(messageInput.current.value);
-    };
-
-    const sendMessage = () => {
-        props.onSendMessage();
-    };
+    const onSubmit = (data) => {
+        onSendMessage(data.message);
+        reset();
+    }
 
     return (
         <div className={styles.dialogs}>
@@ -26,8 +24,10 @@ const Conversations = (props) => {
             </div>
 
             <div>
-                <textarea ref={messageInput} value={props.newMessageText} onChange={updateNewMessageText}/>
-                <button onClick={ sendMessage }> Send </button>
+                <form onSubmit={handleSubmit(onSubmit)}> 
+                    <input {...register('message') } />
+                    <input type={'submit'}/>
+                </form>
             </div>
         </div>
     )

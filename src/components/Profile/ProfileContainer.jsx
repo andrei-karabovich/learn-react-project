@@ -1,24 +1,45 @@
-import React, { useEffect } from "react";
-import Profile from "./Profile";
-import * as axios from "axios";
-import {connect} from "react-redux";
-import { setProfile } from "../../redux/profileReducer";
-
+import React, { useEffect, useRef } from 'react';
+import Profile from './Profile';
+import {connect} from 'react-redux';
+import { getProfile, updatePhoto, updateProfile } from '../../redux/profileReducer';
+import { compose } from 'redux';
+import withRouter from '../../hoc/withRouter';
 
 const mapStateToProps = (state) => ({
-    profile: state.profilePage.profile
+    profile: state.profilePage.profile,
+    authorizedUserId: state.auth.id,
+    isOwner: state?.profilePage?.profile?.userId === state?.auth?.id
 });
 
-
-const ProfileContainer = (props) => {
+  const usePrevious = function(value) {
+    const ref = useRef();
     useEffect(() => {
-        const endPoint = `https://social-network.samuraijs.com/api/1.0/profile/5`;
-        axios.get(endPoint).then( (response) => {
-            props.setProfile(response.data);
-        });
-    }, []);
+      ref.current = value;
+    });
+    return ref.current;
+  }
 
-    return <Profile {... props}/>
+
+const ProfileContainer = (props) => { 
+    const prevProfile = usePrevious(props.profile);
+
+    useEffect(() => {
+        let userId = props.router.params.userId;
+        if (!userId) {
+            userId = props.authorizedUserId;
+        }
+        if (!props.profile || prevProfile?.photos?.large !== props?.profile?.photos?.large) {
+            props.getProfile(userId);
+        }
+    }, [props.getProfile, props.profile]);
+
+    return <Profile {...props }/>
 }
 
-export default connect(mapStateToProps, {setProfile}) (ProfileContainer);
+
+
+export default compose (
+  withRouter,
+  connect(mapStateToProps, {getProfile, updatePhoto, updateProfile})
+)(ProfileContainer);
+

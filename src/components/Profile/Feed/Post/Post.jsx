@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Post.module.css';
 
-const Post = (props) => {
+const Post = ({message, likes}) => {
     return (
         <div className={styles.post}>
             <div className={styles.postAuthorblock}>
@@ -10,9 +10,9 @@ const Post = (props) => {
             </div>
 
             <div className={styles.postDetailsBlock}>
-                <div>{props.message}</div>
+                <div>{message}</div>
                 <div className={styles.likes}>
-                    {props.likes} &#x2665;
+                    {likes} &#x2665;
                 </div>
             </div>
         </div>

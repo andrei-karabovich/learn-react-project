@@ -1,0 +1,82 @@
+import React,  { useEffect }  from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import styles from './Login.module.css';
+import formStyles from './../common/InputControls/InputControls.module.css';
+import {login, cleanLoginError} from '../../redux/authReducer'
+import {connect} from 'react-redux';
+import { requiredField } from '../../utils/validators/validators';
+import { InputText } from '../common/InputControls/InputControls';
+
+
+
+let mapStateToProps = (state) => {
+    return {
+        isAuth: state.auth.isAuth,
+        loginError: state.auth.loginError,
+        captchaURL : state.auth.captchaURL
+    }
+};
+
+const Login = ({isAuth, loginError, login, cleanLoginError, captchaURL}) => {
+    let navigate = useNavigate();
+    const { register, handleSubmit, setError, clearErrors, formState: { errors } } = useForm({mode: 'all'});
+
+    useEffect(() => {
+        if (isAuth){
+            return navigate('/profile')
+        }
+    },[isAuth]);
+
+    useEffect(() => {
+        if (loginError){
+            setError('commonErrors', { type: 'server', message: loginError });
+        }
+    },[loginError]);
+
+
+    const onSubmit = (data) => {
+        login(data);   
+    }
+
+    const clearCommonErrors = () => {
+        cleanLoginError();
+        clearErrors('commonErrors');
+    } 
+    const validationRules = {
+        email : {
+            requiredField
+        }
+    }
+
+    return (
+        <div className={styles.loginBlock}>
+            <h2> Login </h2>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <InputText placeholder='email' name='email' type={'text'} register={register} validationSchema={{required: true}} errors={errors.email} onChange={clearCommonErrors}/>
+                <InputText placeholder='password' name='password' type={'password'} register = {register} validationSchema={{required: true}} errors={errors.password} onChange={clearCommonErrors}/>
+                <div className={styles.inputBlock}>
+                    <span className={styles.label}>Remember Me</span>
+                    <input type={'Checkbox'} {...register('rememberMe')} />
+                </div>
+
+                {errors.commonErrors && 
+                    <div className={formStyles.errorMessage}>
+                        <span>{errors.commonErrors.message}</span>
+                    </div>
+                }
+
+                {captchaURL && 
+                    <div>
+                        <img src={captchaURL}></img>
+                        <InputText placeholder='captcha' name='captcha' type={'text'} register={register} validationSchema={{required: true}} onChange={clearCommonErrors}/>
+                    </div>
+                }
+
+                <input label='Login' type='submit' className={styles.submitButton}></input>
+            </form>
+        </div>
+    );
+}
+
+export default connect(mapStateToProps, {login, cleanLoginError})(Login);

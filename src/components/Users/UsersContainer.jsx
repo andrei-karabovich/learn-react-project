@@ -1,65 +1,59 @@
-import Users from "./Users";
-import React, { useEffect } from "react";
-import * as axios from "axios";
-import {connect} from "react-redux";
-import {inverseIsFollow, setUsers, setUsersTotalCount, setCurrentPage, toggleIsLoading} from "../../redux/usersReducer";
-import Spinner from "../common/Spinner/Spinner";
+import Users from './Users';
+import React, { useEffect } from 'react';
+import {connect} from 'react-redux';
+import {setCurrentPage, followUser, unfollowUser, requestUsers} from '../../redux/usersReducer';
+import Spinner from '../common/Spinner/Spinner';
+import { selectCurrentPage, selectFollowingInProgress, selectIsLoading, selectPageSize, selectTotalUsersCount, selectUsers } from '../../redux/users-selectors';
+import Paginator from '../common/Paginator/Paginator';
 
 let mapStateToProps = (state) => {
     return {
-        users: state.usersPage.users,
-        currentPage: state.usersPage.currentPage,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        isLoading: state.usersPage.isLoading
+        users: selectUsers(state),
+        currentPage: selectCurrentPage(state),
+        pageSize: selectPageSize(state),
+        totalUsersCount: selectTotalUsersCount(state),
+        isLoading: selectIsLoading(state),
+        followingInProgress: selectFollowingInProgress(state)
     }
 };
 
-
 let mapDispatchToPropsObject = {
-    inverseIsFollow,
-    setUsers,
-    setUsersTotalCount,
     setCurrentPage,
-    toggleIsLoading
+    followUser,
+    unfollowUser,
+    requestUsers
 };
 
 const UsersContainer = (props) => {
     useEffect(() => {
-        props.toggleIsLoading(true);
-        const endPoint = `https://social-network.samuraijs.com/api/1.0/users?count=${props.pageSize}&page=${props.currentPage}`;
-        axios.get(endPoint).then( (response) => {
-            props.setUsers(response.data.items);
-            props.setUsersTotalCount(90);
-            props.toggleIsLoading(false);
-        });
+        props.requestUsers(props.pageSize, props.currentPage);
     }, []);
 
 
     const onSubscribeButtonClick = (evt) => {
-        const value = evt.currentTarget.id;
-        props.inverseIsFollow(parseInt(value));
-    }
+        const value = parseInt(evt.currentTarselect.id);
+        if (checkIsFollowed(props.users, value)) {
+            props.unfollowUser(value);
+        } else {
+            props.followUser(value);
+        }   
+    };
+
+    const checkIsFollowed = (users, userId) => {
+        return users.find(user => user.id === userId).followed;
+    };
 
     const onPageNumberClick = (pageNumber) => {
-        props.setCurrentPage(pageNumber);
-        props.toggleIsLoading(true);
-        const endPoint = `https://social-network.samuraijs.com/api/1.0/users?count=${props.pageSize}&page=${pageNumber}`;
-        axios.get(endPoint).then( (response) => {
-            props.setUsers(response.data.items);
-            props.toggleIsLoading(false);
-        }); 
+        props.requestUsers(props.pageSize, pageNumber);
     }
 
-    return <>
-        {props.isLoading ? <Spinner/>: null}
+    return (<>
+        {props.isLoading && <Spinner/>}
+        <Paginator totalAmount={props.totalUsersCount} pageSize={props.pageSize} onPageNumberClick={onPageNumberClick} currentPage={props.currentPage}/>
         <Users users={props.users}
-               currentPage={props.currentPage}
-               totalUsersCount={props.totalUsersCount}
-               pageSize={props.pageSize}
-               onPageNumberClick={onPageNumberClick}
-               onSubscribeButtonClick={onSubscribeButtonClick}/>
-    </>
+               onSubscribeButtonClick={onSubscribeButtonClick}
+               followingInProgress={props.followingInProgress}/>
+    </>)
 }
 
 export default connect(mapStateToProps, mapDispatchToPropsObject)(UsersContainer)

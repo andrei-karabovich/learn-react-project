@@ -1,6 +1,10 @@
-const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST = 'UPDATE-NEW-POST';
-const SET_PROFILE = 'SET_PROFILE';
+import { serverAPI } from '../api/api';
+
+const ADD_POST = 'profileReducer/ADD-POST';
+const DELETE_POST = 'profileReducer/DELETE_POST';
+const SET_PROFILE = 'profileReducer/SET_PROFILE';
+const SET_STATUS = 'profileReducer/SET_STATUS';
+const SET_PHOTOS = 'profileReducer/SET_PHOTOS';
 
 const initialState = {
   posts: [
@@ -8,8 +12,8 @@ const initialState = {
     { postId: '2', text: 'How are you today?', likesCount: 23 },
     { postId: '3', text: 'Tell me more. This must be a long post to check how the layout works.', likesCount: 14 },
   ],
-  newPostText: '',
-  profile: null
+  profile: null, 
+  status: ''
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -18,36 +22,49 @@ const profileReducer = (state = initialState, action) => {
       return {
         ...state,
         posts: [
-        { postId: '4', text: state.newPostText, likesCount: 0 },
+        { postId: '4', text: action.text, likesCount: 0 },
           ...state.posts,
-        ],
-        newPostText: '',
+        ]
       };
-    case UPDATE_NEW_POST:
-      return {
-        ...state,
-        newPostText: action.text,
-      };
+    case DELETE_POST:
+        return {
+          ...state,
+          posts: state.posts.filter((post) => post.postId != action.postId)
+        };
     case SET_PROFILE: 
       return {
         ...state,
         profile: action.profile,
+      };
+    case SET_STATUS: 
+      return {
+        ...state,
+        status: action.status,
+      };
+    case SET_PHOTOS: 
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          photos: action.photoUrls
+        }
       };
     default:
       return state;
   }
 };
 
-export const addPostActionCreator = () => {
+export const addPostActionCreator = (text) => {
   return {
     type: ADD_POST,
+    text
   };
 };
 
-export const updateTextActionCreator = (text) => {
+export const deletePostActionCreator = (postId) => {
   return {
-    type: UPDATE_NEW_POST,
-    text
+    type: DELETE_POST,
+    postId
   };
 };
 
@@ -58,5 +75,55 @@ export const setProfile = (profile) => {
   };
 };
 
+export const setStatus = (status) => {
+  return {
+    type: SET_STATUS,
+    status
+  };
+};
+
+export const setPhotos = (photoUrls) => {
+  return {
+    type: SET_PHOTOS,
+    photoUrls
+  };
+};
+
+
+export const getProfile = (userId) => {
+  return async (dispatch) => {
+    let response = await serverAPI.getProfile(userId);
+    dispatch(setProfile(response));
+  }
+};
+
+export const getStatus = (userId) => {
+  return async (dispatch) => {
+    let response = await serverAPI.getStatus(userId);
+    dispatch(setStatus(response));
+  }
+};
+
+export const updateStatus = (statusMessage) => {
+  return async (dispatch) => {
+    await serverAPI.updateStatus(statusMessage);
+    dispatch(setStatus(statusMessage));
+  }
+}
+
+export const updatePhoto = (photo) => {
+  return async (dispatch) => {
+    let photos = await serverAPI.updatePhoto(photo);
+    dispatch(setPhotos(photos));
+  }
+}
+
+export const updateProfile = (profile) => {
+  debugger;
+  return async (dispatch) => {
+    await serverAPI.updateProfile(profile);
+    dispatch(getProfile(profile.userId));
+  }
+}
 
 export default profileReducer;
